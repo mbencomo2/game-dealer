@@ -17,6 +17,9 @@
     <link rel="stylesheet" href="/css/medium.css" />
     <link rel="stylesheet" href="/css/large.css" />
 
+    <!-- Scripts -->
+    <script src="js/main.js" type="module"></script>
+
     <title>Game Dealer</title>
   </head>
   <body>
@@ -26,6 +29,10 @@
         <h1>Game DEALer</h1>
       </a>
       <div class="icons">
+        <a class="info" href="#" title="User">
+          <img src="images/user-svgrepo-com.svg" alt="Home Page" />
+          <span class="caption">User</span>
+        </a>
         <a class="home" href="#" title="Home">
           <img src="images/home-svgrepo-com.svg" alt="Home Page" />
           <span class="caption">Home</span>
@@ -47,8 +54,8 @@
       <p id="search-text">
         Search thousands of games across dozens of platforms.
       </p>
-      <div class="search">
-        <div class="field">
+      <form class="search">
+        <fieldset class="field">
           <label id="search" for="search-bar"
             ><input
               type="text"
@@ -57,8 +64,8 @@
               placeholder="Search Games"
             />
           </label>
-        </div>
-        <div class="actions">
+        </fieldset>
+        <fieldset class="actions">
           <button
             class="search-button"
             type="submit"
@@ -66,90 +73,11 @@
           >
             <img src="images/search-svgrepo-com.svg" alt="Search Button" />
           </button>
-        </div>
-      </div>
+        </fieldset>
+      </form>
       <section id="main-deals">
         <h1>Deals of the Day</h1>
-        <ul class="grid" id="top-deals">
-          <li class="deal-card">
-            <h2 class="deal-card__title">A Hat in Time</h2>
-            <picture>
-              <source
-                media="(min-width: 500px)"
-                srcset="
-                  https://cdn2.steamgriddb.com/file/sgdb-cdn/thumb/f2826553dde5f86a5c02a277376713fd.jpg
-                "
-              />
-              <source
-                media="(min-width: 800px)"
-                srcset="
-                  https://cdn2.steamgriddb.com/file/sgdb-cdn/thumb/7ff4b6021c6a582ae204924c3e9a181f.jpg
-                "
-              />
-              <img
-                src="https://cdn2.steamgriddb.com/file/sgdb-cdn/thumb/7ff4b6021c6a582ae204924c3e9a181f.jpg"
-                alt="placeholder"
-                class="deal-card__image"
-              />
-            </picture>
-            <div class="deal-card__details">
-              <div class="deal-card__prices">
-                <p class="deal-card__retail">$60.00</p>
-                <p class="deal-card__list">$25.00</p>
-              </div>
-              <div class="deal-card__actions">
-                <a class="deal-card__wish" href="#" title="Add to Wishlist">
-                  <img src="images/heart-svgrepo-com.svg" alt="Wishlist" />
-                </a>
-                <a class="deal-card__shop" href="#" title="Purchase">
-                  <img
-                    src="images/shopping-cart-svgrepo-com.svg"
-                    alt="Store Page"
-                  />
-                </a>
-              </div>
-            </div>
-          </li>
-          <li class="deal-card">
-            <h2 class="deal-card__title">A Hat in Time</h2>
-            <picture>
-              <source
-                media="(min-width: 500px)"
-                srcset="
-                  https://cdn2.steamgriddb.com/file/sgdb-cdn/thumb/f2826553dde5f86a5c02a277376713fd.jpg
-                "
-              />
-              <source
-                media="(min-width: 800px)"
-                srcset="
-                  https://cdn2.steamgriddb.com/file/sgdb-cdn/thumb/7ff4b6021c6a582ae204924c3e9a181f.jpg
-                "
-              />
-              <img
-                src="https://cdn2.steamgriddb.com/file/sgdb-cdn/thumb/7ff4b6021c6a582ae204924c3e9a181f.jpg"
-                alt="placeholder"
-                class="deal-card__image"
-              />
-            </picture>
-            <div class="deal-card__details">
-              <div class="deal-card__prices">
-                <p class="deal-card__retail">$125.00</p>
-                <p class="deal-card__list">$75.00</p>
-              </div>
-              <div class="deal-card__actions">
-                <a class="deal-card__wish" href="#" title="Add to Wishlist">
-                  <img src="images/heart-svgrepo-com.svg" alt="Wishlist" />
-                </a>
-                <a class="deal-card__shop" href="#" title="Purchase">
-                  <img
-                    src="images/shopping-cart-svgrepo-com.svg"
-                    alt="Store Page"
-                  />
-                </a>
-              </div>
-            </div>
-          </li>
-        </ul>
+        <ul class="grid" id="top-deals"></ul>
       </section>
     </main>
     <footer id="main-footer">

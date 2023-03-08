@@ -1,0 +1,16 @@
+@media screen and (min-width: 560px) {
+  main {
+    width: 80%;
+    margin: 0 auto;
+  }
+  #main-motto {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  .top,
+  .sbs {
+    width: 70%;
+    margin: 0.5rem auto;
+  }
+}

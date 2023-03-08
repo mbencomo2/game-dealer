@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- css -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jura:wght@700&family=Mallanna&family=Nunito+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/normalize.css" />
+    <link rel="stylesheet" href="/css/small.css" />
+    <link rel="stylesheet" href="/css/medium.css" />
+    <link rel="stylesheet" href="/css/large.css" />
+
+    <title>Game Dealer</title>
+  </head>
+  <body>
+    <header id="main-header">
+      <a id="logo" href="/">
+        <img src="../images/logos/logo_basic.png" alt="Logo" />
+        <h1>Game DEALer</h1>
+      </a>
+      <div class="icons">
+        <a class="home" href="#" title="Home">
+          <img src="../images/home-svgrepo-com.svg" alt="Home Page" />
+        </a>
+        <a class="wishlist" href="#" title="Wishlist">
+          <img src="../images/heart-svgrepo-com.svg" alt="Home Page" />
+        </a>
+      </div>
+    </header>
+    <main>
+      <h1>Search Deals</h1>
+      <div class="search">
+        <div class="field">
+          <label id="search" for="search-bar"
+            ><input
+              type="text"
+              name="search"
+              id="search-bar"
+              placeholder="Search Games"
+            />
+          </label>
+        </div>
+        <div class="actions">
+          <button class="search-button">
+            <img src="../images/search-svgrepo-com.svg" alt="Search Button" />
+          </button>
+        </div>
+      </div>
+      <div class="filters">
+        <button class="filter-button">+ Filters</button>
+        <form action="#" method="post" id="filters">
+          <label for="storeID" class="top">
+            Store
+            <select name="storeID" id="storeID">
+              <option>Select a Store</option>
+              <!-- Build a list of stores from https://www.cheapshark.com/api/1.0/stores -->
+            </select>
+          </label>
+          <label for="pageSize" class="top">
+            Page Size
+            <select name="pageSize" id="pageSize">
+              <option value="30">30</option>
+              <option value="60" selected>60</option>
+              <option value="100">100</option>
+            </select>
+          </label>
+          <label for="sortBy" class="top">
+            Sort by:
+            <select name="sortBy" id="sortBy">
+              <option value="Deal Rating">Deal Rating</option>
+              <option value="Title">Title</option>
+              <option value="Savings">Savings</option>
+              <option value="Price">Price</option>
+              <option value="Metacritic">Metacritic</option>
+              <option value="Reviews">Reviews</option>
+              <option value="Release">Release</option>
+              <option value="Store">Store</option>
+              <option value="Recent">Recent</option>
+            </select>
+          </label>
+          <label for="direction" class="top">
+            Sort Direction:
+            <select name="desc" id="direction">
+              <option value="1">Ascending</option>
+              <option value="0" selected>Descending</option>
+            </select>
+          </label>
+          <label for="lowerPrice" class="sbs">
+            <span>
+              Price: $
+              <input type="number" name="lowerPrice" id="lowerPrice" /> - $
+              <input type="number" name="upperPrice" id="uppperPrice" />
+            </span>
+          </label>
+          <label for="onSale" class="sbs">
+            On Sale: <input type="checkbox" name="onSale" id="onSale" />
+          </label>
+        </form>
+      </div>
+      <ul class="grid" id="top-deals"></ul>
+      <span class="search-message">
+        <h2>Try Searching your favorite game!</h2>
+      </span>
+      <span class="loading">
+        <img src="../images/logos/logo_basic.png" alt="Loading Image" />
+      </span>
+    </main>
+    <footer id="main-footer">
+      <p>&copy;Not yet finished</p>
+    </footer>
+  </body>
+</html>

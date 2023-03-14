@@ -4,6 +4,10 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A handy website to help you find your favorite games on sale at the lowest price possible. Search by game or current deals!"
+    />
 
     <!-- css -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -18,63 +22,69 @@
     <link rel="stylesheet" href="/css/large.css" />
 
     <title>Game Dealer</title>
+    <script src="/js/dealListing.js" type="module"></script>
   </head>
   <body>
     <header id="main-header">
       <a id="logo" href="/">
-        <img src="../images/logos/logo_basic.png" alt="Logo" />
+        <img src="/images/logos/logo_basic.png" alt="Logo" />
         <h1>Game DEALer</h1>
       </a>
       <div class="icons">
+        <a class="info" href="#" title="User">
+          <img src="/images/user-svgrepo-com.svg" alt="Home Page" />
+          <span class="caption">User</span>
+        </a>
         <a class="home" href="#" title="Home">
-          <img src="../images/home-svgrepo-com.svg" alt="Home Page" />
+          <img src="/images/home-svgrepo-com.svg" alt="Home Page" />
+          <span class="caption">Home</span>
         </a>
         <a class="wishlist" href="#" title="Wishlist">
-          <img src="../images/heart-svgrepo-com.svg" alt="Home Page" />
+          <img src="/images/heart-svgrepo-com.svg" alt="Wishlist" />
+          <span class="caption">Wishlist</span>
         </a>
       </div>
     </header>
     <main>
-      <h1>Search Deals</h1>
-      <div class="search">
-        <div class="field">
+      <h1>Search Deals by Game</h1>
+      <form class="search" method="GET" onsubmit="return false">
+        <fieldset class="field">
           <label id="search" for="search-bar"
             ><input
               type="text"
-              name="search"
+              name="title"
               id="search-bar"
               placeholder="Search Games"
             />
           </label>
-        </div>
-        <div class="actions">
-          <button class="search-button">
-            <img src="../images/search-svgrepo-com.svg" alt="Search Button" />
+        </fieldset>
+        <fieldset class="actions">
+          <button class="search-button" type="submit">
+            <img src="/images/search-svgrepo-com.svg" alt="Search Button" />
           </button>
-        </div>
-      </div>
+        </fieldset>
+      </form>
+      <button type="button" class="button" id="show-filters">+ Filters</button>
       <div class="filters">
-        <button class="filter-button">+ Filters</button>
-        <form action="#" method="post" id="filters">
+        <form id="filters" onsubmit="return false">
           <label for="storeID" class="top">
             Store
             <select name="storeID" id="storeID">
-              <option>Select a Store</option>
-              <!-- Build a list of stores from https://www.cheapshark.com/api/1.0/stores -->
+              <option value="">All Stores</option>
             </select>
           </label>
           <label for="pageSize" class="top">
             Page Size
             <select name="pageSize" id="pageSize">
-              <option value="30">30</option>
-              <option value="60" selected>60</option>
-              <option value="100">100</option>
+              <option value="15">15</option>
+              <option value="30" selected>30</option>
+              <option value="45">45</option>
             </select>
           </label>
           <label for="sortBy" class="top">
             Sort by:
             <select name="sortBy" id="sortBy">
-              <option value="Deal Rating">Deal Rating</option>
+              <option value="Deal Rating" selected>Deal Rating</option>
               <option value="Title">Title</option>
               <option value="Savings">Savings</option>
               <option value="Price">Price</option>
@@ -92,24 +102,35 @@
               <option value="0" selected>Descending</option>
             </select>
           </label>
-          <label for="lowerPrice" class="sbs">
-            <span>
-              Price: $
-              <input type="number" name="lowerPrice" id="lowerPrice" /> - $
+          <span>
+            Price:
+            <label>
+              $
+              <input type="number" name="lowerPrice" id="lowerPrice" />
+            </label>
+            -
+            <label>
+              $
               <input type="number" name="upperPrice" id="uppperPrice" />
-            </span>
-          </label>
+            </label>
+          </span>
           <label for="onSale" class="sbs">
-            On Sale: <input type="checkbox" name="onSale" id="onSale" />
+            On Sale:
+            <input
+              type="checkbox"
+              name="onSale"
+              id="onSale"
+              value="1"
+              checked
+            />
           </label>
+          <button type="submit" class="button">Update Search</button>
         </form>
       </div>
-      <ul class="grid" id="top-deals"></ul>
-      <span class="search-message">
-        <h2>Try Searching your favorite game!</h2>
-      </span>
+      <ul class="grid" id="search-deals"></ul>
+      <h2 class="search-message">Try Searching your favorite game!</h2>
       <span class="loading">
-        <img src="../images/logos/logo_basic.png" alt="Loading Image" />
+        <img src="/images/logos/logo_basic.png" alt="Loading Image" />
       </span>
     </main>
     <footer id="main-footer">

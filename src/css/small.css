@@ -16,6 +16,7 @@ body {
     var(--color-toolbar)
   );
   color: white;
+  font-family: var(--font-paragraph);
   font-size: 16pt;
   min-height: 100vh;
   transition: all 1s ease-in-out;
@@ -29,12 +30,14 @@ img {
 h1 {
   font-family: var(--font-title);
   color: var(--color-search-text);
+  margin: 0;
   padding: 0.5rem;
 }
 h2 {
   font-family: var(--font-heading);
   color: var(--color-search-text);
   padding: 0.5rem;
+  text-align: center;
 }
 p {
   font-family: var(--font-paragraph);
@@ -57,6 +60,19 @@ form input {
   border-radius: 5px;
   font-size: 12pt;
   margin: 0.5rem;
+}
+button {
+  display: block;
+  padding: 0.5rem 1rem;
+  margin: 0 auto;
+  width: 60%;
+  font-family: var(--font-heading);
+  font-size: 1.2em;
+  background-color: var(--color-toolbar);
+  box-shadow: 0px 0px 2px var(--color-highlight);
+  color: var(--color-highlight);
+  border: none;
+  border-radius: 10px;
 }
 
 /*--------------------- Header Styles ---------------------*/
@@ -132,6 +148,9 @@ main {
   font-size: 16pt;
 }
 .search-button {
+  width: auto;
+  box-shadow: none;
+  margin: 0;
   background-color: transparent;
   border: none;
 }
@@ -144,9 +163,11 @@ main {
   border-radius: 10px;
   overflow: hidden;
 
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  align-items: center;
+  width: 100%;
+  min-height: 150px;
 
   background-color: var(--color-toolbar);
   box-shadow: 0px 0px 5px var(--color-highlight);
@@ -173,22 +194,23 @@ main {
   position: relative;
   z-index: 1;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
+  align-items: center;
   background-color: var(--color-toolbar);
-  border-radius: 0 0 10px 10px;
+  height: 100%;
+  overflow: hidden;
 }
 .deal-card__title {
-  width: 100%;
+  text-align: center;
   margin: 0;
-  font-size: 1rem;
+  font-size: 1.5rem;
 }
 .deal-card__prices {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: 10pt;
 }
 .deal-card__retail,
 .deal-card__list {
@@ -197,6 +219,11 @@ main {
 }
 .deal-card__retail {
   text-decoration: line-through;
+}
+.deal-card__list {
+  padding: 0.5rem;
+  border-radius: 10px;
+  background-color: rgba(26, 163, 170, 0.3);
 }
 .deal-card__actions {
   display: flex;
@@ -208,8 +235,8 @@ main {
 .deal-card__wish,
 .deal-card__shop {
   display: inline-block;
-  height: 20px;
-  width: 20px;
+  height: 40px;
+  width: 40px;
   padding: 5px;
   margin: 5px;
   border-radius: 10px;
@@ -222,22 +249,10 @@ main {
 }
 
 /*--------------------- Filter Form Styles ---------------------*/
-.filter-button {
-  display: block;
-  margin: 0 1rem;
-  padding: 0.5rem 1rem;
-
-  font-family: var(--font-heading);
-  font-size: 1.2em;
-  background-color: var(--color-toolbar);
-  box-shadow: 0px 0px 2px var(--color-highlight);
-  color: var(--color-highlight);
-  border: none;
-  border-radius: 10px;
-}
-#filters {
+.filters {
   display: none;
   flex-direction: column;
+  margin-top: 1rem;
 }
 .top {
   display: flex;
@@ -290,14 +305,26 @@ main {
 .grid {
   display: flex;
   flex-wrap: wrap;
-
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  grid-auto-rows: minmax(45px, auto);
-  gap: 1em;
+  gap: 10px;
 
   list-style-type: none;
   padding: 0.5rem;
+}
+.alert {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  position: sticky;
+  top: 0.5rem;
+  z-index: 1;
+  margin: 1rem;
+  padding: 0.5rem;
+  background-color: var(--color-toolbar);
+  color: var(--color-highlight);
+  box-shadow: 0px 0px 2px var(--color-highlight);
+  border-radius: 10px;
 }
 
 /*--------------------- ID Styles ---------------------*/

@@ -1,29 +1,43 @@
-import { Covers, FetchDeals } from "./ExternalAPI";
-import { qs, currConverter } from "./utils";
+import { FetchDeals } from "./ExternalAPI";
+import { qs, currConverter, displayAlert } from "./utils";
 
 export default class dealListing {
   constructor(params, parent) {
+    this.dealService = new FetchDeals();
     this.params = params;
     this.parentElem = parent;
     this.stores = [];
-    this.dealService = new FetchDeals();
-    this.coverService = new Covers();
   }
   async getDeals() {
-    let paramStr = buildParamStr(this.params);
-    let deals = await this.dealService.getDeals(paramStr);
     this.stores = await this.dealService.getStores();
+    let deals = await this.dealService.getDeals(this.params);
     this.renderDeals(deals, this.stores);
     qs(".loading").style.display = "none";
   }
+  async getDealsWithFilter(filterParams) {
+    let search = qs("#search-bar").value;
+    search = search != "" ? `&title=${search.replace(" ", "+")}` : "";
+    let paramStr = `?${filterParams}${search}`;
+    let deals = await this.dealService.getDeals(paramStr);
+    this.renderDeals(deals, this.stores);
+    qs(".loading").style.display = "none";
+    qs(".search-message").style.display = "none";
+  }
+  async renderStoreOptions() {
+    let option = (store) =>
+      `<option value="${store.storeID}">${store.storeName}</option>`;
+    let options = this.stores.map(option);
+    qs("#storeID").insertAdjacentHTML("beforeend", options.join(""));
+  }
   renderDeals(deals, stores) {
     let html = deals.map((deal) => listTemplate(deal, stores));
-    this.parentElem.insertAdjacentHTML("beforeend", html.join(""));
+    this.parentElem.innerHTML = "";
+    if (html.length > 0) {
+      this.parentElem.insertAdjacentHTML("beforeend", html.join(""));
+    } else {
+      displayAlert("There are no games that meet your criteria.");
+    }
   }
-}
-
-function buildParamStr(params) {
-  return `?${params.join("&")}`;
 }
 
 function listTemplate(deal, stores) {
@@ -56,13 +70,13 @@ function listTemplate(deal, stores) {
               </div>
               <div class="deal-card__actions" data-id="${deal.dealID}">
                 <a class="deal-card__wish" href="#" title="Add to Wishlist">
-                  <img src="images/heart-svgrepo-com.svg" alt="Wishlist" />
+                  <img src="/images/heart-svgrepo-com.svg" alt="Wishlist" />
                 </a>
                 <a class="deal-card__shop" href="https://www.cheapshark.com/redirect?dealID=${
                   deal.dealID
-                }" title="Purchase">
+                }" title="Purchase" target="_blank">
                   <img
-                    src="images/shopping-cart-svgrepo-com.svg"
+                    src="/images/shopping-cart-svgrepo-com.svg"
                     alt="Store Page"
                   />
                 </a>

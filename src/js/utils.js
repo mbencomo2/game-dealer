@@ -22,9 +22,42 @@ export function currConverter(value) {
   return currency.format(value);
 }
 
-export function getURLParams(searchString) {
-  const URLParams = new URLSearchParams(searchString);
-  let params = [];
-  URLParams.forEach((value, key) => params.push(`${key}=${value}`));
-  return params;
+export function getParam(param) {
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const product = urlParams.get(param);
+  return product;
+}
+
+export function formDataToJSON(formElement) {
+  const formData = new FormData(formElement),
+    convertedJSON = {};
+
+  formData.forEach(function (value, key) {
+    convertedJSON[key] = value;
+  });
+
+  return convertedJSON;
+}
+
+export function formDataToParams(formData) {
+  let searchStrings = [];
+
+  for (const key in formData) {
+    searchStrings.push(`${key}=${formData[key]}`);
+  }
+
+  return searchStrings.join("&");
+}
+
+export function displayAlert(message) {
+  let main = qs("main");
+  let alert = document.createElement("p");
+  alert.className = "alert";
+  alert.innerHTML = `${message}<span class="close-alert">X</span>`;
+  main.insertAdjacentElement("beforebegin", alert);
+  let alerts = document.querySelectorAll(".close-alert");
+  alerts.forEach((span) =>
+    span.addEventListener("click", (e) => e.target.closest("p").remove())
+  );
 }

@@ -1,40 +1,40 @@
-function listTemplate(deal) {
-  return `<li class="deal-card">
-            <a class="deal-card__title" href="/dealDetails/?id=${
-              deal.dealID
-            }"><h2>${deal.title}</h2></a>
-            <picture>
-              <source
-                media="(min-width: 500px)"
-                srcset="${deal.thumb}"/>
-              <source
-                media="(min-width: 800px)"
-                srcset="${deal.thumb}"/>
-              <img
-                src="${deal.thumb}"
-                alt="${deal.title} cover"
-                class="deal-card__image"
-              />
-            </picture>
-            <p class="deal-card__rating">${deal.savings.toFixed(0)}</p>"
-            <div class="deal-card__details">
-              <div class="deal-card__prices">
-                <p class="deal-card__retail">${deal.normalPrice}</p>
-                <p class="deal-card__list">${deal.salePrice}</p>
-              </div>
-              <div class="deal-card__actions" data-id="${deal.dealID}">
-                <a class="deal-card__wish" href="#" title="Add to Wishlist">
-                  <img src="images/heart-svgrepo-com.svg" alt="Wishlist" />
-                </a>
-                <a class="deal-card__shop" href="https://www.cheapshark.com/redirect?dealID=${
-                  deal.id
-                }" title="Purchase">
-                  <img
-                    src="images/shopping-cart-svgrepo-com.svg"
-                    alt="Store Page"
-                  />
-                </a>
-              </div>
-            </div>
-          </li>`;
+import dealListing from "./fetchDeals.mjs";
+import { getParam, qs, formDataToJSON, formDataToParams } from "./utils";
+
+const param = getParam("title");
+const list = qs("#search-deals");
+const deals = new dealListing(`?title=${param}`, list);
+qs("#search-bar").value = param;
+pageInit();
+
+async function pageInit() {
+  await deals.getDeals();
+  deals.renderStoreOptions();
+  qs("main").addEventListener("submit", (e) => fetchDeals(e));
+  qs(".search").addEventListener("submit", () => {
+    let form = qs(".search");
+    form.submit();
+  });
+  qs("#show-filters").addEventListener("click", () => {
+    qs(".filters").classList.toggle("open");
+  });
+}
+
+function checkFilters() {
+  let data = formDataToJSON(qs("#filters"));
+  for (const key in data) {
+    if (data[key] == "") {
+      delete data[key];
+    }
+  }
+  return data;
+}
+
+function fetchDeals(e) {
+  e.preventDefault();
+  let input = document.querySelector("#search-bar");
+  let filterData = checkFilters();
+  let filterParams = formDataToParams(filterData);
+  deals.getDealsWithFilter(filterParams);
+  input.disabled = false;
 }

@@ -1,7 +1,12 @@
+import { displayAlert } from "./utils";
+
 function convertToJSON(response) {
   if (response.ok) {
     return response.json();
   } else {
+    displayAlert(
+      "Something went wrong searching your deals, please report an issue."
+    );
     throw { name: "servicesError", message: response };
   }
 }
@@ -18,16 +23,6 @@ export class FetchDeals {
   }
   async getDealbyID(id) {
     return await fetch(this.baseURL + `deals?id=${id}`).then(convertToJSON);
-  }
-  async getGames(title, limit = 60, exact = 0) {
-    let fetchURL = encodeURI(
-      this.baseURL + `games?title=${title}&limit=${limit}&exact=${exact}`
-    );
-    return await fetch(fetchURL).then(convertToJSON);
-  }
-  async getGamebyID(id) {
-    let fetchURL = encodeURI(this.baseURL + `games?id=${id}`);
-    return await fetch(fetchURL).then(convertToJSON);
   }
 }
 

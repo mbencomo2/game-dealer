@@ -1,33 +1,43 @@
 import { Covers, FetchDeals } from "./ExternalAPI";
-import { currConverter } from "./utils";
+import { qs, currConverter } from "./utils";
 
 export default class dealListing {
-  constructor(parent) {
+  constructor(params, parent) {
+    this.params = params;
     this.parentElem = parent;
+    this.stores = [];
     this.dealService = new FetchDeals();
     this.coverService = new Covers();
   }
-  async init() {
-    let deals = await this.dealService.getDeals(
-      "pageSize=10&upperPrice=30&onSale=0"
-    );
-    // let stores = await this.dealService.getStores();
-    this.renderDeals(deals);
+  async getDeals() {
+    let paramStr = buildParamStr(this.params);
+    let deals = await this.dealService.getDeals(paramStr);
+    this.stores = await this.dealService.getStores();
+    this.renderDeals(deals, this.stores);
+    qs(".loading").style.display = "none";
   }
-  renderDeals(deals) {
-    let html = deals.map(listTemplate);
+  renderDeals(deals, stores) {
+    let html = deals.map((deal) => listTemplate(deal, stores));
     this.parentElem.insertAdjacentHTML("beforeend", html.join(""));
   }
 }
 
-function listTemplate(deal) {
+function buildParamStr(params) {
+  return `?${params.join("&")}`;
+}
+
+function listTemplate(deal, stores) {
+  let storeName = stores.find(
+    (store) => deal.storeID == store.storeID
+  ).storeName;
   return `<li class='deal-card'>
               <img
                 class="deal-card__store-icon"
                 src="https://www.cheapshark.com/img/stores/icons/${
                   deal.storeID - 1
                 }.png"
-                alt="Store Icon"
+                alt="${storeName} Icon"
+                title="${storeName}"
               />
                 <img
                   src="${deal.thumb}"
@@ -35,6 +45,7 @@ function listTemplate(deal) {
                   class="deal-card__image"
                 />
               <div class="deal-card__details">
+              <h2 class="deal-card__title">${deal.title}</h2>
                 <div class="deal-card__prices">
                   <p class="deal-card__retail">${currConverter(
                     deal.normalPrice

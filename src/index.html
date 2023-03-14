@@ -54,7 +54,12 @@
       <p id="search-text">
         Search thousands of games across dozens of platforms.
       </p>
-      <form class="search">
+      <form
+        class="search"
+        action="/dealListing/"
+        method="GET"
+        onsubmit="return false"
+      >
         <fieldset class="field">
           <label id="search" for="search-bar"
             ><input
@@ -66,11 +71,7 @@
           </label>
         </fieldset>
         <fieldset class="actions">
-          <button
-            class="search-button"
-            type="submit"
-            onclick="window.location.href = '/dealListing/'"
-          >
+          <button class="search-button" type="submit">
             <img src="images/search-svgrepo-com.svg" alt="Search Button" />
           </button>
         </fieldset>
@@ -78,6 +79,9 @@
       <section id="main-deals">
         <h1>Deals of the Day</h1>
         <ul class="grid" id="top-deals"></ul>
+        <span class="loading">
+          <img src="images/logos/logo_basic.png" alt="Loading Image" />
+        </span>
       </section>
     </main>
     <footer id="main-footer">

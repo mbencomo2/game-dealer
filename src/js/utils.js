@@ -21,3 +21,10 @@ export function currConverter(value) {
   });
   return currency.format(value);
 }
+
+export function getURLParams(searchString) {
+  const URLParams = new URLSearchParams(searchString);
+  let params = [];
+  URLParams.forEach((value, key) => params.push(`${key}=${value}`));
+  return params;
+}

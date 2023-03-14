@@ -13,4 +13,11 @@
     width: 70%;
     margin: 0.5rem auto;
   }
+  .deal-card__details {
+    flex-flow: column nowrap;
+  }
+  .deal-card__actions {
+    width: 100%;
+    justify-content: center;
+  }
 }

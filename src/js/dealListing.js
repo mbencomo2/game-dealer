@@ -1,4 +1,5 @@
 import dealListing from "./fetchDeals.mjs";
+import { lazyLoader } from "./lazyLoader.mjs";
 import { getParam, qs, formDataToJSON, formDataToParams } from "./utils";
 
 const param = getParam("title");
@@ -9,8 +10,10 @@ pageInit();
 
 async function pageInit() {
   await deals.getDeals();
+  let imagesToLoad = document.querySelectorAll("[data-src]");
+  lazyLoader(imagesToLoad);
   deals.renderStoreOptions();
-  qs("main").addEventListener("submit", (e) => fetchDeals(e));
+  qs(".filters").addEventListener("change", (e) => fetchDeals(e));
   qs(".search").addEventListener("submit", () => {
     let form = qs(".search");
     form.submit();
@@ -30,11 +33,13 @@ function checkFilters() {
   return data;
 }
 
-function fetchDeals(e) {
+async function fetchDeals(e) {
   e.preventDefault();
   let input = document.querySelector("#search-bar");
   let filterData = checkFilters();
   let filterParams = formDataToParams(filterData);
-  deals.getDealsWithFilter(filterParams);
+  await deals.getDealsWithFilter(filterParams);
   input.disabled = false;
+  let imagesToLoad = document.querySelectorAll("img[data-src]");
+  lazyLoader(imagesToLoad);
 }

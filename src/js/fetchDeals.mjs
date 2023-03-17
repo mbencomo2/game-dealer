@@ -54,7 +54,8 @@ function listTemplate(deal, stores) {
                 title="${storeName}"
               />
                 <img
-                  src="${deal.thumb}"
+                  src="https://placeholder.pics/svg/200x300"
+                  data-src="${deal.thumb}"
                   alt="${deal.title} Thumbnail"
                   class="deal-card__image"
                 />

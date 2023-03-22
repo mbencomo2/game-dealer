@@ -1,9 +1,21 @@
 @media screen and (min-width: 1024px) {
-  #main-header h1 {
-    font-size: 2rem;
+  main {
+    padding: 0px 10%;
   }
-  #main-header img {
-    width: 60px;
-    height: 60px;
+  #main-header {
+    padding: 1rem 10%;
+  }
+  #show-filters {
+    width: 20%;
+  }
+  #filters {
+    width: 50%;
+    margin: 0 auto;
+  }
+  .search {
+    width: 50%;
+  }
+  .alert {
+    width: 50%;
   }
 }

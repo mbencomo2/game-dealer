@@ -10,6 +10,7 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, "src/index.html"),
         dealListing: resolve(__dirname, "src/dealListing/index.html"),
+        wishlist: resolve(__dirname, "src/wishlist/index.html"),
       },
     },
   },

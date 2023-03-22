@@ -4,6 +4,16 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A handy website to help you find your favorite games on sale at the lowest price possible. Search by game or current deals!"
+    />
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
 
     <!-- css -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -17,25 +27,38 @@
     <link rel="stylesheet" href="/css/medium.css" />
     <link rel="stylesheet" href="/css/large.css" />
 
+    <!-- Scripts -->
+    <script src="/js/wishlist.js" type="module"></script>
+
     <title>Game Dealer</title>
   </head>
   <body>
     <header id="main-header">
       <a id="logo" href="/">
-        <img src="../images/logos/logo_basic.png" alt="Logo" />
+        <img src="/images/logos/logo_basic.png" alt="Logo" />
         <h1>Game DEALer</h1>
       </a>
       <div class="icons">
-        <a class="home" href="#" title="Home">
-          <img src="../images/home-svgrepo-com.svg" alt="Home Page" />
+        <a class="home" href="/" title="Home">
+          <img src="/images/home-svgrepo-com.svg" alt="Home Page" />
+          <span class="caption">Home</span>
         </a>
-        <a class="wishlist" href="#" title="Wishlist">
-          <img src="../images/heart-svgrepo-com.svg" alt="Home Page" />
+        <a class="wishlist" href="/wishlist/" title="Wishlist">
+          <img src="/images/heart-svgrepo-com.svg" alt="Wishlist" />
+          <span class="caption">Wishlist</span>
+        </a>
+        <a class="info" href="/user/" title="User">
+          <img src="/images/user-svgrepo-com.svg" alt="User" />
+          <span class="caption">User</span>
         </a>
       </div>
     </header>
     <main>
-      <h1>WishList</h1>
+      <h1>Wishlist</h1>
+      <ul class="grid" id="wishlist"></ul>
+      <span class="loading">
+        <img src="/images/logos/logo_basic.png" alt="Loading Image" />
+      </span>
     </main>
     <footer id="main-footer">
       <p>&copy;Not yet finished</p>

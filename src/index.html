@@ -9,6 +9,12 @@
       content="A handy website to help you find your favorite games on sale at the lowest price possible. Search by game or current deals!"
     />
 
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
     <!-- css -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -33,23 +39,27 @@
         <h1>Game DEALer</h1>
       </a>
       <div class="icons">
-        <a class="info" href="#" title="User">
-          <img src="images/user-svgrepo-com.svg" alt="Home Page" />
-          <span class="caption">User</span>
-        </a>
-        <a class="home" href="#" title="Home">
+        <a class="home" href="/" title="Home">
           <img src="images/home-svgrepo-com.svg" alt="Home Page" />
           <span class="caption">Home</span>
         </a>
-        <a class="wishlist" href="#" title="Wishlist">
-          <img src="images/heart-svgrepo-com.svg" alt="Wishlist" />
+        <a class="wishlist" href="/wishlist/" title="Wishlist">
+          <img
+            id="wishlist-icon"
+            src="images/heart-svgrepo-com.svg"
+            alt="Wishlist"
+          />
           <span class="caption">Wishlist</span>
+        </a>
+        <a class="info" href="#" title="User">
+          <img src="images/user-svgrepo-com.svg" alt="User" />
+          <span class="caption">User</span>
         </a>
       </div>
     </header>
     <main>
       <div id="main-motto">
-        <img src="images/logos/Logo.png" alt="Logo" />
+        <img src="images/logos/Logo.webp" alt="Logo" />
         <p>
           We mastered the Art of the Deal <br />
           <strong>so you don't have to.</strong>
@@ -64,21 +74,17 @@
         method="GET"
         onsubmit="return false"
       >
-        <fieldset class="field">
-          <label id="search" for="search-bar"
-            ><input
-              type="text"
-              name="title"
-              id="search-bar"
-              placeholder="Search Games"
-            />
-          </label>
-        </fieldset>
-        <fieldset class="actions">
-          <button class="search-button" type="submit">
-            <img src="images/search-svgrepo-com.svg" alt="Search Button" />
-          </button>
-        </fieldset>
+        <label id="search" for="search-bar"
+          ><input
+            type="text"
+            name="title"
+            id="search-bar"
+            placeholder="Search Games"
+          />
+        </label>
+        <button class="search-button" type="submit">
+          <img src="images/search-svgrepo-com.svg" alt="Search Button" />
+        </button>
       </form>
       <section id="main-deals">
         <h2>Deals of the Day</h2>

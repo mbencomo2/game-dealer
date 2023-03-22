@@ -19,7 +19,6 @@ body {
   font-family: var(--font-paragraph);
   font-size: 16pt;
   min-height: 100vh;
-  transition: all 1s ease-in-out;
 }
 img {
   width: 100%;
@@ -35,6 +34,7 @@ h1 {
   color: var(--color-search-text);
   margin: 0;
   padding: 0.5rem;
+  text-align: center;
 }
 h2 {
   font-family: var(--font-heading);
@@ -47,22 +47,18 @@ p {
 }
 a {
   text-decoration: none;
+  color: var(--color-search-text);
 }
 input {
   font-family: var(--font-paragraph);
   outline: none;
+  border: none;
 }
 form {
   background-color: rgba(0, 0, 0, 0.5);
   padding: 0.5rem;
   border-radius: 10px;
   font-family: var(--font-paragraph);
-}
-form input {
-  border: none;
-  border-radius: 5px;
-  font-size: 12pt;
-  margin: 0.5rem;
 }
 button {
   display: block;
@@ -86,20 +82,29 @@ button {
   align-items: center;
 
   padding: 0.5rem;
+  background-color: var(--color-background);
 }
 #main-header h1 {
-  font-size: 1.5rem;
+  font-size: 2rem;
 }
-#main-header img {
-  width: 30px;
-  height: 30px;
+#logo img {
+  width: 40px;
+}
+.icons {
+  position: fixed;
+  right: 10px;
+  top: 5px;
+  z-index: 3;
+  background-color: var(--color-background);
+  box-shadow: 0px 0px 5px var(--color-highlight);
+  border-radius: 5px;
+  padding: 5px;
 }
 
 /*--------------------- Main Styles ---------------------*/
 main {
   display: grid;
   padding: 0.5rem;
-  transition: all 0.5s ease-in-out;
 }
 #main-motto {
   width: 80%;
@@ -137,19 +142,6 @@ main {
   padding: 0;
   border: none;
 }
-.field {
-  width: 100%;
-  border: none;
-  padding: 0;
-  margin: 0;
-}
-.field input {
-  width: 100%;
-  padding: 0.5rem;
-  border: none;
-  outline: none;
-  font-size: 16pt;
-}
 .search-button {
   width: auto;
   box-shadow: none;
@@ -157,27 +149,41 @@ main {
   background-color: transparent;
   border: none;
 }
+#search {
+  width: 100%;
+}
+#search-bar {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 16pt;
+  padding-left: 0.5rem;
+}
 
 /*--------------------- Footer Styles ---------------------*/
 
 /*--------------------- Deal-Card Styles ---------------------*/
-.deal-card {
+.deal-card,
+.wish-card {
   position: relative;
   border-radius: 10px;
   overflow: hidden;
 
   display: grid;
-  grid-template-columns: 100px 1fr;
+  grid-template-columns: 40% 1fr;
   align-items: center;
-  min-height: 150px;
+  min-height: 280px;
+  width: 100%;
 
   background-color: var(--color-toolbar);
   box-shadow: 0px 0px 5px var(--color-highlight);
+  text-align: center;
 }
 .deal-card:hover .deal-card__image {
-  transform: scale(1.2, 1.2);
+  transform: scale(1.2);
   border-radius: 10px;
 }
+.wish-card__store,
 .deal-card__store-icon {
   position: absolute;
   top: 5px;
@@ -206,7 +212,17 @@ main {
 .deal-card__title {
   text-align: center;
   margin: 0;
+  font-size: 1.5rem;
+  max-height: 80px;
+  text-overflow: ellipsis;
+  overflow-y: hidden;
+}
+.deal-card__date {
+  background-color: var(--color-toolbar);
   font-size: 1rem;
+  padding: 2px;
+  margin: 0;
+  border-radius: 5px;
 }
 .deal-card__prices {
   display: flex;
@@ -228,33 +244,47 @@ main {
   background-color: rgba(26, 163, 170, 0.3);
 }
 .deal-card__actions {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   padding: 0.5rem;
-  width: 60%;
 }
 .deal-card__wish,
 .deal-card__shop {
-  display: inline-block;
+  display: block;
   height: 40px;
   width: 40px;
   padding: 5px;
-  margin: 5px;
+  margin: 0 10px;
   border-radius: 10px;
 }
 .deal-card__shop {
   background-color: #5c0514;
+  justify-self: flex-end;
 }
 .deal-card__wish {
   background-color: #1aa3aa;
+  justify-self: flex-start;
+  display: block;
+}
+.deal-card__wish:hover {
+  cursor: pointer;
+}
+
+/*--------------------- Wishlist Styles ---------------------*/
+.wish-card__details {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
 }
 
 /*--------------------- Filter Form Styles ---------------------*/
 .filters {
-  display: none;
+  display: flex;
   flex-direction: column;
   margin-top: 1rem;
+  height: 0;
+  overflow: hidden;
+  transition: height 1s ease-out;
 }
 .top {
   display: flex;
@@ -269,7 +299,7 @@ main {
 }
 #lowerPrice,
 #uppperPrice {
-  width: 4em;
+  width: 3em;
 }
 
 /*--------------------- Class Styles ---------------------*/
@@ -277,16 +307,16 @@ main {
 .home,
 .wishlist {
   position: relative;
-  padding: 0.5rem;
+  display: block;
 }
 .caption {
   position: absolute;
-  bottom: -30px;
-  right: 25%;
+  bottom: -40px;
+  left: -30px;
   display: none;
   text-decoration: none;
   padding: 0.5rem;
-  background-color: var(--color-toolbar);
+  background-color: var(--color-background);
   color: var(--color-highlight);
   border-radius: 5px;
 }
@@ -302,7 +332,7 @@ main {
   animation: rotate 1.5s ease-in-out 0.5s infinite;
 }
 .open {
-  display: flex;
+  height: auto;
 }
 .grid {
   display: flex;
@@ -317,16 +347,19 @@ main {
   flex-flow: row nowrap;
   justify-content: space-between;
   align-items: center;
-  text-align: center;
-  position: sticky;
-  top: 0.5rem;
-  z-index: 1;
   margin: 1rem;
-  padding: 0.5rem;
+  padding: 10px;
   background-color: var(--color-toolbar);
   color: var(--color-highlight);
   box-shadow: 0px 0px 2px var(--color-highlight);
   border-radius: 10px;
+}
+.close-alert:hover {
+  cursor: pointer;
+  color: var(--color-search-text);
+}
+.animate-icon {
+  animation: grow 1s ease 0s;
 }
 
 /*--------------------- ID Styles ---------------------*/
@@ -352,5 +385,16 @@ main {
   }
   to {
     transform: rotate(360deg);
+  }
+}
+@keyframes grow {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1);
   }
 }

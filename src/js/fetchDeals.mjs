@@ -8,27 +8,43 @@ export default class dealListing {
     this.parentElem = parent;
     this.stores = [];
   }
+  /**
+   * Fetch deals without filters
+   */
   async getDeals() {
     this.stores = await this.dealService.getStores();
     let deals = await this.dealService.getDeals(this.params);
-    this.renderDeals(deals, this.stores);
+    this.renderDeals(deals.result, this.stores);
     qs(".loading").style.display = "none";
   }
+  /**
+   * Fetch deals with filters as set with the filter form.
+   * Title is grabbed from the search bar.
+   * @param {string} filterParams
+   */
   async getDealsWithFilter(filterParams) {
+    qs(".loading").style.display = "block";
     let search = qs("#search-bar").value;
     search = search != "" ? `&title=${search.replace(" ", "+")}` : "";
     let paramStr = `?${filterParams}${search}`;
     let deals = await this.dealService.getDeals(paramStr);
-    this.renderDeals(deals, this.stores);
+    this.renderDeals(deals.result, this.stores);
     qs(".loading").style.display = "none";
-    qs(".search-message").style.display = "none";
   }
+  /**
+   * Display store options in the filter select
+   */
   async renderStoreOptions() {
     let option = (store) =>
-      `<option value="${store.storeID}">${store.storeName}</option>`;
-    let options = this.stores.map(option);
+        `<option value="${store.storeID}">${store.storeName}</option>`,
+      options = this.stores.map(option);
     qs("#storeID").insertAdjacentHTML("beforeend", options.join(""));
   }
+  /**
+   * Display the search results or display an alert
+   * @param {array} deals
+   * @param {array} stores
+   */
   renderDeals(deals, stores) {
     let html = deals.map((deal) => listTemplate(deal, stores));
     this.parentElem.innerHTML = "";
@@ -36,51 +52,61 @@ export default class dealListing {
       this.parentElem.insertAdjacentHTML("beforeend", html.join(""));
     } else {
       displayAlert("There are no games that meet your criteria.");
+      qs("main").insertAdjacentHTML(
+        "beforeend",
+        "<h2>Check your filters if you cannot find a certain game.</h2>"
+      );
     }
   }
 }
 
 function listTemplate(deal, stores) {
-  let storeName = stores.find(
-    (store) => deal.storeID == store.storeID
-  ).storeName;
-  return `<li class='deal-card'>
+  return `<li class="deal-card">
               <img
-                class="deal-card__store-icon"
-                src="https://www.cheapshark.com/img/stores/icons/${
-                  deal.storeID - 1
-                }.png"
-                alt="${storeName} Icon"
-                title="${storeName}"
-              />
+              class="deal-card__store-icon"
+              src="https://www.cheapshark.com/img/stores/icons/${
+                deal.storeID - 1
+              }.png"
+              alt="${stores[deal.storeID - 1].storeName} Icon"
+              title="${stores[deal.storeID - 1].storeName}"
+            />
                 <img
                   src="https://placeholder.pics/svg/200x300"
                   data-src="${deal.thumb}"
                   alt="${deal.title} Thumbnail"
                   class="deal-card__image"
                 />
+
               <div class="deal-card__details">
               <h2 class="deal-card__title">${deal.title}</h2>
                 <div class="deal-card__prices">
-                  <p class="deal-card__retail">${currConverter(
-                    deal.normalPrice
-                  )}</p>
-                  <p class="deal-card__list">${currConverter(
-                    deal.salePrice
-                  )}</p>
+                  <p class="deal-card__retail">
+                    ${currConverter(deal.normalPrice)}
+                  </p>
+                  <p class="deal-card__list">
+                    ${currConverter(deal.salePrice)}
+                  </p>
               </div>
-              <div class="deal-card__actions" data-id="${deal.dealID}">
-                <a class="deal-card__wish" href="#" title="Add to Wishlist">
-                  <img src="/images/heart-svgrepo-com.svg" alt="Wishlist" />
-                </a>
-                <a class="deal-card__shop" href="https://www.cheapshark.com/redirect?dealID=${
-                  deal.dealID
-                }" title="Purchase" target="_blank">
+              <div class="deal-card__actions">
+                <a
+                  class="deal-card__shop" 
+                  href="https://www.cheapshark.com/redirect?dealID=${
+                    deal.dealID
+                  }" 
+                  title="Purchase" 
+                  target="_blank">
                   <img
                     src="/images/shopping-cart-svgrepo-com.svg"
                     alt="Store Page"
                   />
                 </a>
+                <img 
+                  class="deal-card__wish" 
+                  title="Add to Wishlist" 
+                  data-action="wishlist" 
+                  data-id="${deal.gameID}"
+                  src="/images/heart-svgrepo-com.svg" alt="Wishlist" 
+                />
               </div>
           </li>`;
 }

@@ -41,7 +41,7 @@ export function formDataToJSON(formElement) {
 }
 
 export function formDataToParams(formData) {
-  let searchStrings = [];
+  const searchStrings = [];
 
   for (const key in formData) {
     searchStrings.push(`${key}=${formData[key]}`);
@@ -55,9 +55,28 @@ export function displayAlert(message) {
   let alert = document.createElement("p");
   alert.className = "alert";
   alert.innerHTML = `${message}<span class="close-alert">X</span>`;
-  main.insertAdjacentElement("beforebegin", alert);
+  main.insertAdjacentElement("afterbegin", alert);
   let alerts = document.querySelectorAll(".close-alert");
   alerts.forEach((span) =>
     span.addEventListener("click", (e) => e.target.closest("p").remove())
   );
+}
+
+export function convertToJSON(response) {
+  if (response.ok) {
+    return response.json();
+  } else {
+    displayAlert(
+      "Something went wrong searching your deals, please report an issue."
+    );
+    throw { name: "servicesError", message: response };
+  }
+}
+
+export function animateIcon(elementID) {
+  const element = qs(`${elementID}`);
+  element.classList.toggle("animate-icon");
+  setTimeout(() => {
+    element.classList.toggle("animate-icon");
+  }, 1000);
 }

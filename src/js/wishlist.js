@@ -1,4 +1,4 @@
-import { qs } from "./utils";
+import { mobileNav, qs } from "./utils";
 import Wishlist from "./wishlist.mjs";
 
 const list = qs("#wishlist");
@@ -9,4 +9,5 @@ pageInit();
 async function pageInit() {
   await wishlist.updatePrices();
   wishlist.renderWishlist();
+  mobileNav();
 }

@@ -6,6 +6,7 @@
   --font-title: "Jura", sans-serif;
   --font-heading: "Mallanna", sans-serif;
   --font-paragraph: "Nunito Sans", sans-serif;
+  box-sizing: border-box;
 }
 
 body {
@@ -76,6 +77,9 @@ button {
 
 /*--------------------- Header Styles ---------------------*/
 #main-header {
+  position: sticky;
+  top: 0;
+  z-index: 5;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
@@ -91,13 +95,8 @@ button {
   width: 40px;
 }
 .icons {
-  position: fixed;
-  right: 10px;
-  top: 5px;
+  position: relative;
   z-index: 3;
-  background-color: var(--color-background);
-  box-shadow: 0px 0px 5px var(--color-highlight);
-  border-radius: 5px;
   padding: 5px;
 }
 
@@ -172,8 +171,8 @@ main {
   display: grid;
   grid-template-columns: 40% 1fr;
   align-items: center;
-  min-height: 280px;
   width: 100%;
+  min-height: 220px;
 
   background-color: var(--color-toolbar);
   box-shadow: 0px 0px 5px var(--color-highlight);
@@ -186,10 +185,11 @@ main {
 .wish-card__store,
 .deal-card__store-icon {
   position: absolute;
+  display: block;
   top: 5px;
   left: 5px;
   z-index: 2;
-  width: 16px;
+  width: 26px;
   padding: 5px;
   background-color: var(--color-toolbar);
   border-radius: 10px;
@@ -206,22 +206,19 @@ main {
   justify-content: space-between;
   align-items: center;
   background-color: var(--color-toolbar);
-  height: 100%;
-  overflow: hidden;
+  min-height: 100%;
+  max-height: 300px;
 }
 .deal-card__title {
   text-align: center;
   margin: 0;
   font-size: 1.5rem;
-  max-height: 80px;
-  text-overflow: ellipsis;
-  overflow-y: hidden;
+  overflow: hidden;
 }
 .deal-card__date {
   background-color: var(--color-toolbar);
   font-size: 1rem;
-  padding: 2px;
-  margin: 0;
+  margin: 0.5rem;
   border-radius: 5px;
 }
 .deal-card__prices {
@@ -246,7 +243,7 @@ main {
 .deal-card__actions {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  padding: 0.5rem;
+  padding: 1rem;
 }
 .deal-card__wish,
 .deal-card__shop {
@@ -281,10 +278,9 @@ main {
 .filters {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem;
   margin-top: 1rem;
-  height: 0;
-  overflow: hidden;
-  transition: height 1s ease-out;
 }
 .top {
   display: flex;
@@ -298,28 +294,42 @@ main {
   margin-top: 0.5rem;
 }
 #lowerPrice,
-#uppperPrice {
+#upperPrice {
   width: 3em;
 }
 
 /*--------------------- Class Styles ---------------------*/
+.menu-content {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  flex-direction: column;
+  background-color: var(--color-background);
+  padding: 5px;
+  border-radius: 10px;
+}
+.burger:hover .menu-content {
+  display: flex;
+}
+.burger,
 .info,
 .home,
 .wishlist {
   position: relative;
   display: block;
+  height: 40px;
 }
 .caption {
   position: absolute;
-  bottom: -40px;
-  left: -30px;
-  display: none;
+  top: 0;
+  right: 40px;
   text-decoration: none;
   padding: 0.5rem;
   background-color: var(--color-background);
   color: var(--color-highlight);
   border-radius: 5px;
 }
+.burger:hover .caption,
 .info:hover .caption,
 .home:hover .caption,
 .wishlist:hover .caption {
@@ -331,8 +341,20 @@ main {
   margin: 0 auto;
   animation: rotate 1.5s ease-in-out 0.5s infinite;
 }
-.open {
-  height: auto;
+.hidden {
+  will-change: opacity, height;
+  transition: opacity 0.25s ease-out, height 0.5s ease-out;
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+}
+.f-open {
+  opacity: 1;
+  height: 420px;
+}
+.m-open {
+  opacity: 1;
+  height: 130px;
 }
 .grid {
   display: flex;
@@ -368,6 +390,9 @@ main {
   flex-flow: row nowrap;
   justify-content: flex-start;
   align-items: center;
+}
+#search-text img {
+  filter: invert();
 }
 
 /*--------------------- Animations ---------------------*/

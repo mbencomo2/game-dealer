@@ -14,21 +14,17 @@ export default class dealListing {
   async getDeals() {
     this.stores = await this.dealService.getStores();
     let deals = await this.dealService.getDeals(this.params);
-    this.renderDeals(deals.result, this.stores);
+    this.renderDeals(deals, this.stores);
     qs(".loading").style.display = "none";
   }
   /**
-   * Fetch deals with filters as set with the filter form.
-   * Title is grabbed from the search bar.
+   * Fetch deals with different search parameters.
    * @param {string} filterParams
    */
-  async getDealsWithFilter(filterParams) {
+  async getDealsWithFilter(paramStr) {
     qs(".loading").style.display = "block";
-    let search = qs("#search-bar").value;
-    search = search != "" ? `&title=${search.replace(" ", "+")}` : "";
-    let paramStr = `?${filterParams}${search}`;
     let deals = await this.dealService.getDeals(paramStr);
-    this.renderDeals(deals.result, this.stores);
+    this.renderDeals(deals, this.stores);
     qs(".loading").style.display = "none";
   }
   /**
@@ -46,15 +42,15 @@ export default class dealListing {
    * @param {array} stores
    */
   renderDeals(deals, stores) {
-    let html = deals.map((deal) => listTemplate(deal, stores));
+    let dealList = deals.result.map((deal) => listTemplate(deal, stores));
     this.parentElem.innerHTML = "";
-    if (html.length > 0) {
-      this.parentElem.insertAdjacentHTML("beforeend", html.join(""));
+    if (deals.result.length > 0) {
+      this.parentElem.insertAdjacentHTML("beforeend", dealList.join(""));
     } else {
-      displayAlert("There are no games that meet your criteria.");
-      qs("main").insertAdjacentHTML(
+      displayAlert("Check your filters if you cannot find a game.");
+      this.parentElem.insertAdjacentHTML(
         "beforeend",
-        "<h2>Check your filters if you cannot find a certain game.</h2>"
+        "<li><h2>No games on sale found.</h2></li>"
       );
     }
   }

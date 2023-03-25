@@ -1,6 +1,6 @@
 import dealListing from "./fetchDeals.mjs";
 import { lazyLoader } from "./lazyLoader.mjs";
-import { animateIcon, qs } from "./utils";
+import { animateIcon, mobileNav, qs } from "./utils";
 import Wishlist from "./wishlist.mjs";
 
 const list = qs("#top-deals");
@@ -11,20 +11,20 @@ pageInit();
 
 async function pageInit() {
   await listing.getDeals();
+  mobileNav();
   let imagesToLoad = document.querySelectorAll("[data-src]");
   lazyLoader(imagesToLoad);
   qs(".search").addEventListener("submit", () => {
     let form = qs(".search");
     form.submit();
   });
-  qs("#main-deals").addEventListener("click", (e) => addToWishlist(e));
+  qs("#main-deals").addEventListener("click", (e) => addToWishlist(e.target));
 }
 
-function addToWishlist(e) {
-  const target = e.target;
+function addToWishlist(target) {
   let action = target.dataset.action;
   if (action == "wishlist") {
     wishlist.addToWishlist(target.dataset.id);
-    animateIcon("#wishlist-icon");
+    animateIcon(target);
   }
 }

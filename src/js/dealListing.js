@@ -1,45 +1,49 @@
 import dealListing from "./fetchDeals.mjs";
 import { lazyLoader } from "./lazyLoader.mjs";
 import {
-  getParam,
   qs,
   formDataToJSON,
   formDataToParams,
   animateIcon,
+  mobileNav,
+  getParam,
 } from "./utils";
 import Wishlist from "./wishlist.mjs";
 
-const param = getParam("title");
+const title = getParam("title");
+qs("#search-bar").value = title;
 const list = qs("#search-deals");
-const filterParams = formDataToParams(checkFilters());
-const deals = new dealListing(`title=${param}&${filterParams}`, list);
+const deals = new dealListing(filterParams(), list);
 const wishlist = new Wishlist(list);
-qs("#search-bar").value = param;
 pageInit();
 
 async function pageInit() {
   await deals.getDeals();
+  mobileNav();
   qs(".search-message").style.display = "none";
   let imagesToLoad = document.querySelectorAll("[data-src]");
   lazyLoader(imagesToLoad);
   deals.renderStoreOptions();
+  createListeners();
+}
+
+function createListeners() {
   qs(".filters").addEventListener("change", (e) => fetchDeals(e));
-  qs(".search").addEventListener("submit", submitForm);
   qs("#show-filters").addEventListener("click", toggleFiltersOpen);
-  qs("#search-deals").addEventListener("click", (e) => addToWishlist(e));
+  qs(".search").addEventListener("submit", submitForm);
+  qs("#search-deals").addEventListener("click", (e) => addToWishlist(e.target));
+}
+function toggleFiltersOpen() {
+  qs(".filters").classList.toggle("f-open");
 }
 
 function submitForm() {
-  let form = qs(".search");
+  let form = qs("form");
   form.submit();
 }
 
-function toggleFiltersOpen() {
-  qs(".filters").classList.toggle("open");
-}
-
 function checkFilters() {
-  let data = formDataToJSON(qs("#filters"));
+  let data = formDataToJSON(qs(".filters"));
   for (const key in data) {
     if (data[key] == "") {
       delete data[key];
@@ -50,18 +54,22 @@ function checkFilters() {
 
 async function fetchDeals(e) {
   e.preventDefault();
-  let filters = formDataToParams(checkFilters());
-  await deals.getDealsWithFilter(`title=${param}&${filters}`);
+  await deals.getDealsWithFilter(filterParams());
   // Lazy load images
   let imagesToLoad = document.querySelectorAll("img[data-src]");
   lazyLoader(imagesToLoad);
 }
 
-function addToWishlist(e) {
-  const target = e.target;
+function addToWishlist(target) {
   let action = target.dataset.action;
   if (action == "wishlist") {
     wishlist.addToWishlist(target.dataset.id);
-    animateIcon("#wishlist-icon");
+    animateIcon(target);
   }
+}
+
+function filterParams() {
+  let param = getParam("title");
+  let filters = formDataToParams(checkFilters());
+  return `title=${param}&${filters}`;
 }

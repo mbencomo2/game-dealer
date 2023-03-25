@@ -8,7 +8,11 @@ export class FetchDeals {
     return await fetch(this.baseURL + "stores").then(convertToJSON);
   }
   async getDeals(params) {
-    let response = await fetch(this.baseURL + `deals?${params}`);
+    let options = {
+      method: "GET",
+      redirect: "follow",
+    };
+    let response = await fetch(this.baseURL + `deals?${params}`, options);
     if (response.ok) {
       let data = await convertToJSON(response),
         pages = response.headers.get("x-total-page-count"),

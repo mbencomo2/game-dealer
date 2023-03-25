@@ -73,10 +73,16 @@ export function convertToJSON(response) {
   }
 }
 
-export function animateIcon(elementID) {
-  const element = qs(`${elementID}`);
+export function animateIcon(element) {
   element.classList.toggle("animate-icon");
   setTimeout(() => {
     element.classList.toggle("animate-icon");
   }, 1000);
+}
+
+export function mobileNav() {
+  qs(".burger").addEventListener("click", () => {
+    const icons = qs(".menu-content");
+    icons.classList.toggle("m-open");
+  });
 }

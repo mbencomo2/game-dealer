@@ -4,7 +4,7 @@
   "description": "Boilerplate for WDD 330 Game DEALer project",
   "main": "main.js",
   "scripts": {
-    "start": "vite",
+    "start": "vite --host",
     "build": "vite build --emptyOutDir",
     "preview": "vite preview",
     "lint": "eslint *.js src/**/*.js",

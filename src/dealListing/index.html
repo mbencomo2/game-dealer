@@ -37,22 +37,27 @@
         <h1>Game DEALer</h1>
       </a>
       <div class="icons">
-        <a class="home" href="/" title="Home">
-          <img src="/images/home-svgrepo-com.svg" alt="Home Page" />
-          <span class="caption">Home</span>
-        </a>
-        <a class="wishlist" href="/wishlist/" title="Wishlist">
-          <img
-            id="wishlist-icon"
-            src="/images/heart-svgrepo-com.svg"
-            alt="Wishlist"
-          />
-          <span class="caption">Wishlist</span>
-        </a>
-        <a class="info" href="/user/" title="User">
-          <img src="/images/user-svgrepo-com.svg" alt="User" />
-          <span class="caption">User</span>
-        </a>
+        <span class="burger" title="Site Menu">
+          <img src="/images/hamburger-menu-svgrepo-com.svg" alt="Site Menu" />
+        </span>
+        <div class="menu-content hidden">
+          <a class="home" href="/" title="Home">
+            <img src="/images/home-svgrepo-com.svg" alt="Home Page" />
+            <span class="caption hidden">Home</span>
+          </a>
+          <a class="wishlist" href="/wishlist/" title="Wishlist">
+            <img
+              id="wishlist-icon"
+              src="/images/heart-svgrepo-com.svg"
+              alt="Wishlist"
+            />
+            <span class="caption hidden">Wishlist</span>
+          </a>
+          <a class="info" href="#" title="User">
+            <img src="/images/user-svgrepo-com.svg" alt="User" />
+            <span class="caption hidden">User</span>
+          </a>
+        </div>
       </div>
     </header>
     <main>
@@ -76,68 +81,63 @@
         </button>
       </form>
       <button type="button" class="button" id="show-filters">+ Filters</button>
-      <div class="filters">
-        <form id="filters" onsubmit="return false">
-          <label for="storeID" class="top">
-            Store
-            <select name="storeID" id="storeID">
-              <option value="">All Stores</option>
-            </select>
+      <form class="filters hidden" onsubmit="return false">
+        <label for="storeID" class="top">
+          Store
+          <select name="storeID" id="storeID">
+            <option value="">All Stores</option>
+          </select>
+        </label>
+        <label for="pageSize" class="top">
+          Page Size
+          <select name="pageSize" id="pageSize">
+            <option value="15" selected>15</option>
+            <option value="30">30</option>
+            <option value="60">60</option>
+          </select>
+        </label>
+        <label for="sortBy" class="top">
+          Sort by:
+          <select name="sortBy" id="sortBy">
+            <option value="Deal Rating" selected>Deal Rating</option>
+            <option value="Title">Title</option>
+            <option value="Savings">Savings</option>
+            <option value="Price">Price</option>
+            <option value="Metacritic">Metacritic</option>
+            <option value="Reviews">Reviews</option>
+            <option value="Release">Release</option>
+            <option value="Store">Store</option>
+            <option value="Recent">Recent</option>
+          </select>
+        </label>
+        <label for="direction" class="top">
+          Sort Direction:
+          <select name="desc" id="direction">
+            <option value="1">Ascending</option>
+            <option value="0" selected>Descending</option>
+          </select>
+        </label>
+        <p class="sbs">
+          Price:&nbsp;
+          <label for="lowerPrice">
+            $
+            <input type="number" name="lowerPrice" id="lowerPrice" />
           </label>
-          <label for="pageSize" class="top">
-            Page Size
-            <select name="pageSize" id="pageSize">
-              <option value="15" selected>15</option>
-              <option value="30">30</option>
-              <option value="45">45</option>
-            </select>
+          &nbsp;-&nbsp;
+          <label for="upperPrice">
+            $
+            <input type="number" name="upperPrice" id="upperPrice" />
           </label>
-          <label for="sortBy" class="top">
-            Sort by:
-            <select name="sortBy" id="sortBy">
-              <option value="Deal Rating" selected>Deal Rating</option>
-              <option value="Title">Title</option>
-              <option value="Savings">Savings</option>
-              <option value="Price">Price</option>
-              <option value="Metacritic">Metacritic</option>
-              <option value="Reviews">Reviews</option>
-              <option value="Release">Release</option>
-              <option value="Store">Store</option>
-              <option value="Recent">Recent</option>
-            </select>
-          </label>
-          <label for="direction" class="top">
-            Sort Direction:
-            <select name="desc" id="direction">
-              <option value="1">Ascending</option>
-              <option value="0" selected>Descending</option>
-            </select>
-          </label>
-          <p class="sbs">
-            Price:&nbsp;
-            <label for="lowerPrice">
-              $
-              <input type="number" name="lowerPrice" id="lowerPrice" />
-            </label>
-            &nbsp;-&nbsp;
-            <label for="upperPrice">
-              $
-              <input type="number" name="upperPrice" id="upperPrice" />
-            </label>
-          </p>
-          <label for="onSale" class="sbs">
-            On Sale:
-            <input
-              type="checkbox"
-              name="onSale"
-              id="onSale"
-              value="1"
-              checked
-            />
-          </label>
-        </form>
-      </div>
+        </p>
+        <label for="onSale" class="sbs">
+          On Sale:&nbsp;
+          <input type="checkbox" name="onSale" id="onSale" value="1" checked />
+        </label>
+        <input type="hidden" name="pageNumber" value="0" id="pageNum" />
+      </form>
+      <div class="page-select"></div>
       <ul class="grid" id="search-deals"></ul>
+      <div class="page-select"></div>
       <h2 class="search-message">Try Searching your favorite game!</h2>
       <span class="loading">
         <img src="/images/logos/logo_basic.png" alt="Loading Image" />

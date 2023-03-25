@@ -14,9 +14,17 @@
   #main-footer {
     padding: 1rem 10%;
   }
-  .icons {
+  .burger {
+    display: none;
+  }
+  .menu-content {
+    position: relative;
     display: flex;
     flex-direction: row;
+    width: auto;
+    height: auto;
+    top: 0;
+    opacity: 1;
   }
   .top,
   .sbs {
@@ -46,9 +54,5 @@
   .filter-button {
     width: 70%;
     margin: 0 auto;
-  }
-  .alert {
-    max-width: 60%;
-    margin: 1rem auto;
   }
 }

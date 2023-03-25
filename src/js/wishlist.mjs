@@ -41,14 +41,12 @@ export default class Wishlist {
    * Remove a deal from localstorage
    * @param {string} gameId
    */
-  removeFromWishlist(e) {
-    let target = e.target;
+  removeFromWishlist(target) {
     let action = target.dataset.action;
     if (action == "delete") {
       let wishlist = getStorage(this.key);
       //Find the deal in the wishlist
-      let deal = wishlist.find((item) => item.gameID == target.dataset.id);
-      //Remove using splice
+      let deal = wishlist.find((item) => item.id == target.dataset.id);
       wishlist.splice(wishlist.indexOf(deal), 1);
       setStorage(this.key, wishlist);
       this.renderWishlist();
@@ -79,7 +77,7 @@ export default class Wishlist {
         let li = document.createElement("li");
         li.innerHTML = listTemplate(deal, stores);
         li.classList = "deal-card";
-        li.addEventListener("click", (e) => this.removeFromWishlist(e));
+        li.addEventListener("click", (e) => this.removeFromWishlist(e.target));
         this.parent.insertAdjacentElement("beforeEnd", li);
       });
     } else {
@@ -127,11 +125,11 @@ function listTemplate(deal, stores) {
       <p class="deal-card__list">
         ${currConverter(topDeal.price)}
       </p>
-      <p>
-        Added:
-        ${date.toLocaleDateString(undefined, options)}
-      </p>
     </div>
+    <p class="deal-card__date">
+      Added:
+      ${date.toLocaleDateString(undefined, options)}
+    </p>
     <div class="deal-card__actions">
       <a
         class="deal-card__shop" 
@@ -147,7 +145,7 @@ function listTemplate(deal, stores) {
         class="deal-card__wish" 
         title="Remove from Wishlist" 
         data-action="delete" 
-        data-id="${deal.gameID}"
+        data-id="${deal.id}"
         src="/images/close-svgrepo-com.svg" 
         alt="Remove" />
     </div>

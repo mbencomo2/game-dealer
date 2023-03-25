@@ -333,7 +333,8 @@ main {
 .info:hover .caption,
 .home:hover .caption,
 .wishlist:hover .caption {
-  display: block;
+  opacity: 1;
+  height: auto;
 }
 .loading {
   display: block;

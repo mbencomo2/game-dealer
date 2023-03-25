@@ -25,6 +25,11 @@
     height: auto;
     top: 0;
     opacity: 1;
+    overflow: visible;
+  }
+  .caption {
+    top: 40px;
+    right: 0;
   }
   .top,
   .sbs {

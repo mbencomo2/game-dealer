@@ -55,7 +55,6 @@ export function displayAlert(message) {
   let alert = document.createElement("p");
   alert.className = "alert";
   alert.innerHTML = message;
-  body.innerHTML = "";
   body.insertAdjacentElement("afterbegin", alert);
   let alerts = document.querySelectorAll(".alert");
   alerts.forEach((p) => setTimeout(() => p.remove(), 1200));

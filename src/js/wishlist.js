@@ -10,7 +10,7 @@ pageInit();
 
 async function pageInit() {
   await wishlist.updatePrices();
-  await wishlist.renderWishlist();
+  wishlist.renderWishlist();
   mobileNav();
   createListeners();
 }
@@ -18,6 +18,9 @@ async function pageInit() {
 function createListeners() {
   //Handle clicks in the deal listing
   qs("#wishlist").addEventListener("click", (e) => listMan(e.target));
+  //Create email alerts when form button is clicked
+  qs("#email-button").addEventListener("click", () => modal.createEmailAlert());
+  //Close the modal
   qs(".close-modal").addEventListener("click", (e) => {
     e.target.closest("div").classList.toggle("e-open");
   });
@@ -25,9 +28,7 @@ function createListeners() {
 
 function listMan(target) {
   let action = target.dataset.action;
-  if (action == "delete") {
-    wishlist.removeFromWishlist(target);
-  } else if (action == "email") {
+  if (action == "email") {
     modal.showEmailModal(target);
   }
 }

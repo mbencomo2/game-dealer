@@ -1,5 +1,5 @@
 import { FetchDeals } from "./ExternalAPI";
-import { currConverter, displayAlert, qs } from "./utils";
+import { currConverter, displayAlert, qs } from "./utils.mjs";
 import { getStorage, addToStorage, setStorage } from "./localStorage.mjs";
 
 export default class Wishlist {
@@ -54,10 +54,7 @@ export default class Wishlist {
       }
       wishlist.splice(wishlist.indexOf(deal), 1);
       setStorage(this.key, wishlist);
-      target.closest("li").remove();
-      if (wishlist.length == 0) {
-        this.renderWishlist();
-      }
+      if (render) this.renderWishlist();
       displayAlert("Removed from Wishlist");
     }
   }

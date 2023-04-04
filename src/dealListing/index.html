@@ -70,7 +70,6 @@
         class="search"
         action="/dealListing/"
         method="GET"
-        onsubmit="return false"
       >
         <label id="search" for="search-bar"
           ><input
@@ -78,6 +77,7 @@
             name="title"
             id="search-bar"
             placeholder="Search Games"
+            aria-label="Search Bar"
           />
         </label>
         <button class="search-button" type="submit">
@@ -89,8 +89,8 @@
         <img
           src="/images/down-svgrepo-com.svg"
           alt="Chevron Down"
-          width="40px"
-          height="40px"
+          width="40"
+          height="40"
         />
       </button>
       <form class="filters hidden" onsubmit="return false">
@@ -98,14 +98,6 @@
           Store
           <select name="storeID" id="storeID">
             <option value="">All Stores</option>
-          </select>
-        </label>
-        <label for="pageSize" class="top">
-          Page Size
-          <select name="pageSize" id="pageSize">
-            <option value="15" selected>15</option>
-            <option value="30">30</option>
-            <option value="60">60</option>
           </select>
         </label>
         <label for="sortBy" class="top">
@@ -121,6 +113,7 @@
             <option value="Store">Store</option>
             <option value="Recent">Recent</option>
           </select>
+          <input type="hidden" name="pageNumber" value="0" />
         </label>
         <label for="direction" class="top">
           Sort Direction:
@@ -149,13 +142,13 @@
       </form>
       <div class="page-select"></div>
       <ul class="grid" id="search-deals"></ul>
-      <div class="page-select"></div>
-      <h2 class="search-message deal-card__title">
-        Try Searching your favorite game!
-      </h2>
       <span class="loading">
         <img src="/images/logos/logo_basic.png" alt="Loading Image" />
       </span>
+      <h2 class="search-message deal-card__title">
+        Try Searching your favorite game!
+      </h2>
+      <div class="page-select"></div>
     </main>
     <footer id="main-footer">
       <p>&copy;Not yet finished</p>

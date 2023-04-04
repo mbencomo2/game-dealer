@@ -1,4 +1,4 @@
-import { convertToJSON, displayAlert } from "./utils";
+import { convertToJSON, displayAlert } from "./utils.mjs";
 
 export class FetchDeals {
   constructor() {

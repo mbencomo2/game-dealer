@@ -1,4 +1,4 @@
-import { displayAlert } from "./utils";
+import { displayAlert } from "./utils.mjs";
 
 /**
  * Get data from LocalStorage with an Array

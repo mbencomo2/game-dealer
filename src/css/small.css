@@ -357,7 +357,7 @@ main {
 }
 .f-open {
   opacity: 1;
-  height: 440px;
+  height: 370px;
 }
 .m-open {
   opacity: 1;
@@ -448,9 +448,8 @@ main {
 .email-modal {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  position: sticky;
+  position: fixed;
   width: 100%;
   min-height: 100vh;
   bottom: 0;
@@ -466,6 +465,7 @@ main {
 .alert-form {
   position: relative;
   width: 90%;
+  margin: 0 auto;
   background-color: var(--color-toolbar);
   border-radius: 10px;
   padding: 1rem;
@@ -487,6 +487,17 @@ main {
   border-radius: 10px;
   font-weight: bold;
 }
+.page-select {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  margin: 0 auto;
+  padding: .5rem;
+}
+
+.page-select img {
+  width: 40px;
+}
 
 /*--------------------- ID Styles ---------------------*/
 #logo {
@@ -496,13 +507,13 @@ main {
   align-items: center;
 }
 #search-text {
-display: flex;
-flex-direction: column;
-align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 #search-text img {
   max-width: 80px;
-  filter: invert();
+  filter: invert(1);
 }
 #search-deals {
   margin: 0;

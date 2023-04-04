@@ -24,15 +24,14 @@
     opacity: 1;
     overflow: visible;
   }
-  .filters {
-    width: 50%;
-    margin: 0 auto;
-  }
   .search {
     width: 50%;
   }
   .alert-form {
     width: 40%;
     padding: 1rem 10%;
+  }
+  .page-select {
+    width: 40%;
   }
 }

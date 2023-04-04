@@ -1,5 +1,5 @@
 import { emailModal } from "./emailModal.mjs";
-import dealListing from "./fetchDeals.mjs";
+import dealListing from "./dealListing.mjs";
 import { lazyLoader } from "./lazyLoader.mjs";
 import { animateIcon, mobileNav, qs } from "./utils";
 import Wishlist from "./wishlist.mjs";
@@ -23,6 +23,8 @@ async function pageInit() {
 function createListeners() {
   //Handle clicks in the deal listing
   qs("#top-deals").addEventListener("click", (e) => listMan(e.target));
+  //Create email alerts when form button is clicked
+  qs("#email-button").addEventListener("click", () => modal.createEmailAlert());
   //Close the modal
   qs(".close-modal").addEventListener("click", (e) => {
     e.target.closest("div").classList.toggle("e-open");

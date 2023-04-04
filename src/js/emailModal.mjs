@@ -1,6 +1,6 @@
 import { FetchDeals } from "./ExternalAPI.js";
 import { getStorage, setStorage } from "./localStorage.mjs";
-import { displayAlert, formDataToJSON, qs } from "./utils";
+import { displayAlert, formDataToJSON, qs } from "./utils.mjs";
 import Wishlist from "./wishlist.mjs";
 
 export class emailModal {

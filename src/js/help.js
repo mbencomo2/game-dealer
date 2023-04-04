@@ -2,6 +2,6 @@ import { mobileNav } from "./utils";
 
 pageInit();
 
-async function pageInit() {
+function pageInit() {
   mobileNav();
 }

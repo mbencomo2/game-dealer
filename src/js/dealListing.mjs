@@ -1,5 +1,5 @@
 import { FetchDeals } from "./ExternalAPI";
-import { qs, currConverter } from "./utils";
+import { qs, currConverter } from "./utils.mjs";
 
 export default class dealListing {
   constructor(params, parent) {
@@ -12,10 +12,14 @@ export default class dealListing {
    * Fetch deals without filters
    */
   async getDeals() {
+    this.parentElem.innerHTML = "";
+    document
+      .querySelectorAll(".page-select")
+      .forEach((div) => (div.innerHTML = ""));
     this.stores = await this.dealService.getStores();
     let deals = await this.dealService.getDeals(this.params);
     // deals = removeDuplicates(deals.result);
-    this.renderDeals(deals.result, this.stores);
+    this.renderDeals(deals, this.stores);
     qs(".loading").style.display = "none";
   }
   /**
@@ -24,15 +28,21 @@ export default class dealListing {
    */
   async getDealsWithFilter(paramStr) {
     qs(".loading").style.display = "block";
+    document
+      .querySelectorAll(".page-select")
+      .forEach((div) => (div.innerHTML = ""));
+    this.parentElem.innerHTML = "";
     let deals = await this.dealService.getDeals(paramStr);
-    // deals = removeDuplicates(deals.result);
-    this.renderDeals(deals.result, this.stores);
+    this.renderDeals(deals, this.stores);
+    this.renderPageSelect(deals.pages);
+    qs("#pageNum").max = deals.pages;
     qs(".loading").style.display = "none";
   }
   /**
    * Display store options in the filter select
    */
   async renderStoreOptions() {
+    this.stores = await this.dealService.getStores();
     let option = (store) =>
         `<option value="${store.storeID}">${store.storeName}</option>`,
       options = this.stores.map(option);
@@ -44,9 +54,8 @@ export default class dealListing {
    * @param {array} stores
    */
   renderDeals(deals, stores) {
-    let dealList = deals.map((deal) => listTemplate(deal, stores));
-    this.parentElem.innerHTML = "";
-    if (deals.length > 0) {
+    let dealList = deals.result.map((deal) => listTemplate(deal, stores));
+    if (deals.result.length > 0) {
       this.parentElem.insertAdjacentHTML("beforeend", dealList.join(""));
     } else {
       this.parentElem.insertAdjacentHTML(
@@ -54,20 +63,33 @@ export default class dealListing {
         "<li><h2 class='deal-card__title'>No games on sale found.</h2></li>"
       );
     }
+    window.scrollTo(0, 0);
   }
-}
-
-function removeDuplicates(deals) {
-  let filteredDeals = [];
-  deals.forEach((deal) => {
-    let search = filteredDeals.find((item) => item.gameID == deal.gameID);
-    if (search) {
-      delete deals[deal];
-    } else {
-      filteredDeals.push(deal);
-    }
-  });
-  return filteredDeals;
+  renderPageSelect(numOfPages) {
+    let currPage = qs("#pageNum").value;
+    document.querySelectorAll(".page-select").forEach((div) => {
+      let select = `<select name="pageSelect" data-action="change" title="Select a Page"><option hidden disabled selected>1</option>`;
+      for (let i = 0; i < numOfPages; i++) {
+        currPage == i
+          ? (select += `<option value="${i}" selected>${i + 1}</option>`)
+          : (select += `<option value="${i}">${i + 1}</option>`);
+      }
+      select += "</select>";
+      div.innerHTML = `<img 
+        src="/images/chevron-left-svgrepo-com.svg" 
+        alt="Previous Page" 
+        data-action="prev"
+        title="Previous Page"
+      >
+      ${select}
+      <img 
+        src="/images/chevron-right-svgrepo-com.svg" 
+        alt="Next Page" 
+        data-action="next"
+        title="Next Page"
+      >`;
+    });
+  }
 }
 
 function listTemplate(deal, stores) {

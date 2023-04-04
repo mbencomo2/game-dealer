@@ -1,6 +1,6 @@
 @media screen and (min-width: 1024px) {
   main {
-    padding: 0px 10%;
+    padding: 0px 20%;
   }
   #main-header {
     padding: 1rem 10%;
@@ -8,11 +8,31 @@
   #show-filters {
     width: 20%;
   }
-  #filters {
+  .burger {
+    display: none;
+  }
+  .caption {
+    display: none;
+  }
+  .menu-content {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    width: auto;
+    height: auto;
+    top: 0;
+    opacity: 1;
+    overflow: visible;
+  }
+  .filters {
     width: 50%;
     margin: 0 auto;
   }
   .search {
     width: 50%;
+  }
+  .alert-form {
+    width: 40%;
+    padding: 1rem 10%;
   }
 }

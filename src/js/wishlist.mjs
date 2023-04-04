@@ -1,5 +1,5 @@
 import { FetchDeals } from "./ExternalAPI";
-import { currConverter, qs } from "./utils";
+import { currConverter, displayAlert, qs } from "./utils";
 import { getStorage, addToStorage, setStorage } from "./localStorage.mjs";
 
 export default class Wishlist {
@@ -18,7 +18,7 @@ export default class Wishlist {
    * @param {string} gameId
    * @returns void
    */
-  async addToWishlist(gameId) {
+  async addToWishlist(gameId, price = 29.99) {
     //If storage is empty create an empty array
     let wishlist = getStorage(this.key) ?? [];
     let inList = wishlist.find((item) => item.id == gameId);
@@ -33,6 +33,7 @@ export default class Wishlist {
         id: gameId,
         topDeal: deal.deals[0],
         dateAdded: currentDate,
+        alertPrice: price,
       };
       addToStorage(this.key, addToList);
     }
@@ -41,15 +42,23 @@ export default class Wishlist {
    * Remove a deal from localstorage
    * @param {string} gameId
    */
-  removeFromWishlist(target) {
+  removeFromWishlist(target, render = true) {
     let action = target.dataset.action;
     if (action == "delete") {
       let wishlist = getStorage(this.key);
+      let email = getStorage("alertEmail");
       //Find the deal in the wishlist
       let deal = wishlist.find((item) => item.id == target.dataset.id);
+      if (email) {
+        this.dealService.deleteEmailAlert(email, deal.id);
+      }
       wishlist.splice(wishlist.indexOf(deal), 1);
       setStorage(this.key, wishlist);
-      this.renderWishlist();
+      target.closest("li").remove();
+      if (wishlist.length == 0) {
+        this.renderWishlist();
+      }
+      displayAlert("Removed from Wishlist");
     }
   }
   /**
@@ -68,6 +77,7 @@ export default class Wishlist {
    * Display the wishlist
    */
   async renderWishlist() {
+    qs(".loading").style.display = "block";
     this.parent.innerHTML = "";
     let wishlist = getStorage(this.key) ?? [];
     //If the wishlist is display a message
@@ -89,6 +99,34 @@ export default class Wishlist {
     //Remove the loading icon
     qs(".loading").style.display = "none";
   }
+  /**
+   * Display a list of games with their current alertPrice
+   */
+  renderAlertPrices() {
+    let wishlist = getStorage(this.key) ?? [];
+    let html = wishlist.map(alertTemplate);
+    this.parent.insertAdjacentHTML("beforeend", html.join(""));
+    let listItems = document.querySelectorAll(".alert-item>select");
+    listItems.forEach((li) =>
+      li.addEventListener("change", (e) => this.updateAlertPrice(e))
+    );
+  }
+  /**
+   * Updates an item in the wishlist with the selected alertPrice.
+   * Update the email alert.
+   * @param {node} e
+   */
+  updateAlertPrice(target) {
+    let wishlist = getStorage(this.key);
+    let id = target.dataset.id;
+    let deal = wishlist.find((wishItem) => wishItem.id == id);
+    if (deal) {
+      let price = target.value;
+      deal.alertPrice = price;
+      setStorage(this.key, wishlist);
+      this.dealService.createEmailAlert(getStorage("alertEmail"), id, price);
+    }
+  }
 }
 
 /**
@@ -105,49 +143,84 @@ function listTemplate(deal, stores) {
     month: "numeric",
     day: "numeric",
   };
-  return `<img
+  return `<span class="deal-card__store">
+  <img
     class="deal-card__store-icon"
     src="https://www.cheapshark.com/img/stores/icons/${topDeal.storeID - 1}.png"
     alt="${stores[topDeal.storeID - 1].storeName} Icon"
     title="${stores[topDeal.storeID - 1].storeName}"
   />
-  <img
-    class="deal-card__image"
-    src="${deal.thumb}"
-    alt="${deal.title} Thumbnail"
-  />
-  <div class="deal-card__details">
-  <h2 class="deal-card__title">${deal.title}</h2>
-    <div class="deal-card__prices">
-      <p class="deal-card__retail">
-        ${currConverter(topDeal.retailPrice)}
-      </p>
-      <p class="deal-card__list">
-        ${currConverter(topDeal.price)}
-      </p>
-    </div>
-    <p class="deal-card__date">
-      Added:
-      ${date.toLocaleDateString(undefined, options)}
+</span>
+<img
+  class="deal-card__image"
+  src="${deal.thumb}"
+  alt="${deal.title} Thumbnail"
+/>
+<div class="deal-card__details">
+<h2 class="deal-card__title">${deal.title}</h2>
+  <div class="deal-card__prices">
+    <p class="deal-card__retail">
+      ${currConverter(topDeal.retailPrice)}
     </p>
-    <div class="deal-card__actions">
-      <a
-        class="deal-card__shop" 
-        href="https://www.cheapshark.com/redirect?dealID=${topDeal.dealID}" 
-        title="Purchase" 
-        target="_blank">
-        <img
-          src="/images/shopping-cart-svgrepo-com.svg"
-          alt="Store Page"
-        />
-      </a>
-      <img 
-        class="deal-card__wish" 
-        title="Remove from Wishlist" 
-        data-action="delete" 
-        data-id="${deal.id}"
-        src="/images/close-svgrepo-com.svg" 
-        alt="Remove" />
-    </div>
-  </div>`;
+    <p class="deal-card__list">
+      ${currConverter(topDeal.price)}
+    </p>
+  </div>
+  <p class="deal-card__date">
+    Added:
+    ${date.toLocaleDateString(undefined, options)}
+  </p>
+  <div class="deal-card__actions">
+    <a
+      class="deal-card__shop" 
+      href="https://www.cheapshark.com/redirect?dealID=${topDeal.dealID}" 
+      title="Purchase" 
+      target="_blank">
+      <img
+        src="/images/shopping-cart-svgrepo-com.svg"
+        alt="Store Page"
+      />
+    </a>
+    <img 
+      class="deal-card__wish" 
+      title="Remove from Wishlist" 
+      data-action="delete" 
+      data-id="${deal.id}"
+      src="/images/close-svgrepo-com.svg" 
+      alt="Remove" />
+    <img 
+      class="deal-card__email" 
+      title="Create Email Alert" 
+      data-action="email"
+      data-id="${deal.id}"
+      src="/images/mail-svgrepo-com.svg" alt="Wishlist" />
+  </div>
+</div>`;
+}
+
+function alertTemplate(deal) {
+  return `<li class="alert-item">
+<div class="alert-details">
+  ${deal.title}
+  <select class="alert-select" data-id="${deal.id}">
+    <option selected hidden>
+      ${currConverter(deal.alertPrice)}
+    </option>
+    <option value="4.99">$4.99</option>
+    <option value="9.99">$9.99</option>
+    <option value="14.99">$14.99</option>
+    <option value="19.99">$19.99</option>
+    <option value="29.99">$29.99</option>
+    <option value="44.99">$44.99</option>
+    <option value="59.99">$59.99</option>
+  </select>
+</div>
+<span 
+  class="delete-alert" 
+  data-action="delete" 
+  data-id="${deal.id}"
+>
+  X
+</span>
+</li>`;
 }

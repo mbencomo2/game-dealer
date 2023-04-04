@@ -1,6 +1,6 @@
 export function lazyLoader(imagesToLoad) {
   const options = {
-    threshold: 0.2,
+    threshold: 0.1,
   };
   const loadImage = (image) => {
     let src = image.dataset.src;

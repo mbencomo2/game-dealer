@@ -38,29 +38,33 @@
         <img src="images/logos/logo_basic.png" alt="Logo" />
         <h1>Game DEALer</h1>
       </a>
-      <div class="icons">
+      <nav class="icons">
         <span class="burger" title="Site Menu">
           <img src="images/hamburger-menu-svgrepo-com.svg" alt="Site Menu" />
         </span>
         <div class="menu-content hidden">
-          <a class="home" href="/" title="Home">
+          <a class="icon" href="/" title="Home">
             <img src="images/home-svgrepo-com.svg" alt="Home Page" />
-            <span class="caption hidden">Home</span>
+            <span class="caption">Home</span>
           </a>
-          <a class="wishlist" href="/wishlist/" title="Wishlist">
+          <a class="icon" href="/wishlist/" title="Wishlist">
             <img
               id="wishlist-icon"
               src="images/heart-svgrepo-com.svg"
               alt="Wishlist"
             />
-            <span class="caption hidden">Wishlist</span>
+            <span class="caption">Wishlist</span>
           </a>
-          <a class="info" href="#" title="User">
+          <a class="icon" href="/user/" title="User">
             <img src="images/user-svgrepo-com.svg" alt="User" />
-            <span class="caption hidden">User</span>
+            <span class="caption">User</span>
+          </a>
+          <a class="icon" href="/help/" title="Help">
+            <img src="images/help-svgrepo-com.svg" alt="Help" />
+            <span class="caption">Help</span>
           </a>
         </div>
-      </div>
+      </nav>
     </header>
     <main>
       <div id="main-motto">
@@ -77,22 +81,20 @@
         class="search"
         action="/dealListing/"
         method="GET"
-        onsubmit="return false"
       >
-        <label id="search" for="search-bar"
-          ><input
-            type="text"
-            name="title"
-            id="search-bar"
-            placeholder="Search Games"
-          />
-        </label>
+        <input
+          type="text"
+          name="title"
+          id="search-bar"
+          placeholder="Search Games"
+          aria-label="Game Title Search Bar"
+        />
         <button class="search-button" type="submit">
           <img src="images/search-svgrepo-com.svg" alt="Search Button" />
         </button>
       </form>
       <section id="main-deals">
-        <h2>Deals of the Day</h2>
+        <h2 class="deal-card__title">Deals of the Day</h2>
         <ul class="grid" id="top-deals"></ul>
         <span class="loading">
           <img src="images/logos/logo_basic.png" alt="Loading Image" />
@@ -102,5 +104,39 @@
     <footer id="main-footer">
       <p>&copy;Not yet finished</p>
     </footer>
+    <div class="email-modal hidden">
+      <form class="alert-form">
+        <img
+          class="close-modal"
+          src="/images/close-svgrepo-com.svg"
+          alt="Close Modal"
+        />
+        <h2>Create Email Alert</h2>
+        <label for="email" class="top">
+          Email:
+          <input
+            type="email"
+            name="email"
+            id="email"
+            placeholder="someone@website.com"
+          />
+        </label>
+        <label for="price" class="top">
+          Price:
+          <select name="price" id="price">
+            <option value="4.99">$4.99</option>
+            <option value="9.99">$9.99</option>
+            <option value="14.99" selected>$14.99</option>
+            <option value="19.99">$19.99</option>
+            <option value="24.99">$24.99</option>
+            <option value="19.99">$29.99</option>
+            <option value="44.99">$44.99</option>
+          </select>
+        </label>
+        <input type="hidden" name="gameID" id="gameId" value="" />
+        <button id="email-button" type="button" data-id="">Create Alert</button>
+      </form>
+    </div>
+    <div id="alerts"></div>
   </body>
 </html>

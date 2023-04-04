@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="View the games you have added to your wish list."
+      content="Manage alerts for games on your wishlist, and set default search settings."
     />
 
     <!-- Favicon -->
@@ -28,7 +28,7 @@
     <link rel="stylesheet" href="/css/large.css" />
 
     <!-- Scripts -->
-    <script src="/js/wishlist.js" type="module"></script>
+    <script src="/js/user.js" type="module"></script>
 
     <title>Game Dealer</title>
   </head>
@@ -67,48 +67,57 @@
       </nav>
     </header>
     <main>
-      <h1>Wishlist</h1>
-      <ul class="grid" id="wishlist"></ul>
-      <span class="loading">
-        <img src="/images/logos/logo_basic.png" alt="Loading Image" />
-      </span>
+      <h1>User Settings</h1>
+      <form>
+        <p>
+          Please enter the email you wish to use to receive alerts for games on
+          sale. Games on your wishlist will automatically be included.
+        </p>
+        <p>
+          All email alerts are managed via CheapShark. By using this service,
+          you agree to their
+          <a
+            href="https://www.cheapshark.com/terms"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Terms of Use</a
+          >. Please also read their
+          <a
+            href="https://www.cheapshark.com/privacy"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Privacy Policy</a
+          >.
+        </p>
+        <label for="email" class="top">
+          Email:
+          <input type="email" name="email" id="register-email" required />
+        </label>
+        <button type="button" id="sign-up">Yes, send me Deal Alerts</button>
+        <div id="customize-alerts">
+          <p>You can set individual price alerts below.</p>
+          <button type="button" id="view-alerts">Set Custom Alerts</button>
+          <ul class="wishlist-alerts hidden">
+            <li>
+              <h2 class="deal-card__title">
+                Deleted items are removed from the wishlist as well.
+              </h2>
+            </li>
+          </ul>
+        </div>
+      </form>
+      <form>
+        <p>This will send a link to your email to manage your email alerts.</p>
+        <label for="email" class="top">
+          Email:
+          <input type="email" name="email" id="manage-email" required />
+        </label>
+        <button type="button" id="manage-alerts">Manage My Alerts</button>
+      </form>
     </main>
     <footer id="main-footer">
       <p>&copy;Not yet finished</p>
     </footer>
-    <div class="email-modal hidden">
-      <form class="alert-form">
-        <img
-          class="close-modal"
-          src="/images/close-svgrepo-com.svg"
-          alt="Close Modal"
-        />
-        <h2>Create Email Alert</h2>
-        <label for="email" class="top">
-          Email:
-          <input
-            type="email"
-            name="email"
-            id="email"
-            placeholder="someone@website.com"
-          />
-        </label>
-        <label for="price" class="top">
-          Price:
-          <select name="price" id="price">
-            <option value="4.99">$4.99</option>
-            <option value="9.99">$9.99</option>
-            <option value="14.99" selected>$14.99</option>
-            <option value="19.99">$19.99</option>
-            <option value="24.99">$24.99</option>
-            <option value="19.99">$29.99</option>
-            <option value="44.99">$44.99</option>
-          </select>
-        </label>
-        <input type="hidden" name="gameID" id="gameId" value="" />
-        <button id="email-button" type="button" data-id="">Create Alert</button>
-      </form>
-    </div>
     <div id="alerts"></div>
   </body>
 </html>

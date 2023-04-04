@@ -51,15 +51,14 @@ export function formDataToParams(formData) {
 }
 
 export function displayAlert(message) {
-  let main = qs("main");
+  let body = qs("#alerts");
   let alert = document.createElement("p");
   alert.className = "alert";
-  alert.innerHTML = `${message}<span class="close-alert">X</span>`;
-  main.insertAdjacentElement("afterbegin", alert);
-  let alerts = document.querySelectorAll(".close-alert");
-  alerts.forEach((span) =>
-    span.addEventListener("click", (e) => e.target.closest("p").remove())
-  );
+  alert.innerHTML = message;
+  body.innerHTML = "";
+  body.insertAdjacentElement("afterbegin", alert);
+  let alerts = document.querySelectorAll(".alert");
+  alerts.forEach((p) => setTimeout(() => p.remove(), 1200));
 }
 
 export function convertToJSON(response) {

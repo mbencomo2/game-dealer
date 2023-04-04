@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="View the games you have added to your wish list."
+      content="A handy website to help you find your favorite games on sale at the lowest price possible. Search by game or current deals!"
     />
 
     <!-- Favicon -->
@@ -28,7 +28,7 @@
     <link rel="stylesheet" href="/css/large.css" />
 
     <!-- Scripts -->
-    <script src="/js/wishlist.js" type="module"></script>
+    <script src="/js/help.js" type="module"></script>
 
     <title>Game Dealer</title>
   </head>
@@ -55,7 +55,7 @@
             />
             <span class="caption">Wishlist</span>
           </a>
-          <a class="icon user" href="/user/" title="User">
+          <a class="icon" href="/user/" title="User">
             <img src="/images/user-svgrepo-com.svg" alt="User" />
             <span class="caption">User</span>
           </a>
@@ -67,48 +67,52 @@
       </nav>
     </header>
     <main>
-      <h1>Wishlist</h1>
-      <ul class="grid" id="wishlist"></ul>
-      <span class="loading">
-        <img src="/images/logos/logo_basic.png" alt="Loading Image" />
-      </span>
+      <h1>Help</h1>
+      <ul>
+        <li><a href="#Contact">Contact Us</a></li>
+        <li><a href="#Howto">How to Use the Site</a></li>
+      </ul>
+      <section id="Contact Us">
+        <h1>Contact Us</h1>
+        <p>
+          If you are experiencing issues, please contact us by
+          <a href="mailto:gamedealer+issues@gamedealer.com">emailing us</a>, or
+          you can submit a ticket with the form below.
+        </p>
+        <form>
+          <label for="email" class="top">
+            Email:*
+            <input type="email" name="email" id="email" required />
+          </label>
+          <label for="message" class="top">
+            Message:*
+            <textarea
+              name="message"
+              id="message"
+              rows="10"
+              placeholder="Write your message here."
+              required
+            ></textarea>
+          </label>
+          <button type="submit">Send your Message</button>
+          <span>*: required</span>
+        </form>
+      </section>
+      <section id="Howto">
+        <h1>How to use the Site</h1>
+        <p>See the following image to know what buttons do.</p>
+        <picture>
+          <source
+            media="(min-width: 800px)"
+            srcset="/images/help/desktop.webp"
+          />
+          <img src="/images/help/mobile.webp" alt="Help Image" />
+        </picture>
+      </section>
     </main>
     <footer id="main-footer">
       <p>&copy;Not yet finished</p>
     </footer>
-    <div class="email-modal hidden">
-      <form class="alert-form">
-        <img
-          class="close-modal"
-          src="/images/close-svgrepo-com.svg"
-          alt="Close Modal"
-        />
-        <h2>Create Email Alert</h2>
-        <label for="email" class="top">
-          Email:
-          <input
-            type="email"
-            name="email"
-            id="email"
-            placeholder="someone@website.com"
-          />
-        </label>
-        <label for="price" class="top">
-          Price:
-          <select name="price" id="price">
-            <option value="4.99">$4.99</option>
-            <option value="9.99">$9.99</option>
-            <option value="14.99" selected>$14.99</option>
-            <option value="19.99">$19.99</option>
-            <option value="24.99">$24.99</option>
-            <option value="19.99">$29.99</option>
-            <option value="44.99">$44.99</option>
-          </select>
-        </label>
-        <input type="hidden" name="gameID" id="gameId" value="" />
-        <button id="email-button" type="button" data-id="">Create Alert</button>
-      </form>
-    </div>
     <div id="alerts"></div>
   </body>
 </html>

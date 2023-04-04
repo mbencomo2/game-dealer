@@ -1,52 +1,56 @@
 @media screen and (min-width: 560px) {
   #main-header {
-    padding: 0.5rem 10%;
+    padding: 0 10%;
   }
   main {
     padding: 0.5rem 10%;
     margin: 0 auto;
   }
+  form {
+    padding: 0.5rem 15%;
+  }
+  button {
+    margin: 0 auto;
+    margin-top: 0.5rem;
+  }
   #main-motto {
     display: grid;
     grid-template-columns: 1fr 1fr;
     align-items: center;
+    font-size: 120%;
   }
   #main-footer {
     padding: 1rem 10%;
   }
-  .burger {
-    display: none;
-  }
-  .menu-content {
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    width: auto;
-    height: auto;
-    top: 0;
-    opacity: 1;
-    overflow: visible;
-  }
-  .caption {
-    top: 40px;
-    right: 0;
-  }
-  .top,
-  .sbs {
-    width: 70%;
-    margin: 0.5rem auto;
+  .alert {
+    width: 60%;
   }
   .grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-    grid-auto-rows: 300px;
+    grid-auto-rows: auto;
+  }
+  .deal-card {
+    display: grid;
+    grid-template-columns: 40% 1fr;
+    min-height: auto;
+  }
+  .deal-card:hover .deal-card__image {
+    transform: scale(1.2);
+    border-radius: 10px;
+  }
+  .deal-card__details {
+    height: 100%;
+  }
+  .deal-card__date {
+    position: absolute;
+    padding: 2px;
+    bottom: 3px;
+    left: 3px;
   }
   .search {
     width: 70%;
     margin: 1rem auto;
-  }
-  .deal-card {
-    grid-template-columns: 200px 1fr;
   }
   .icons {
     position: relative;
@@ -54,10 +58,17 @@
   }
   .filters {
     width: 70%;
-    margin: 1rem auto;
+    margin: auto auto;
   }
   .filter-button {
     width: 70%;
     margin: 0 auto;
+  }
+  .alert-item {
+    text-align: left;
+    flex-direction: row;
+  }
+  .alert-form {
+    width: 60%;
   }
 }

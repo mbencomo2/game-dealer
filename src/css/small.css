@@ -7,6 +7,7 @@
   --font-heading: "Mallanna", sans-serif;
   --font-paragraph: "Nunito Sans", sans-serif;
   box-sizing: border-box;
+  font-size: 16pt;
 }
 
 body {
@@ -18,7 +19,6 @@ body {
   );
   color: white;
   font-family: var(--font-paragraph);
-  font-size: 16pt;
   min-height: 100vh;
 }
 img {
@@ -50,49 +50,67 @@ a {
   text-decoration: none;
   color: var(--color-search-text);
 }
-input {
+input,
+textarea,
+select {
   font-family: var(--font-paragraph);
+  border-radius: 5px;
   outline: none;
   border: none;
 }
+input:valid {
+  border-bottom: 5px solid var(--color-highlight);
+}
+input:invalid {
+  border-bottom: 5px solid red;
+}
 form {
   background-color: rgba(0, 0, 0, 0.5);
-  padding: 0.5rem;
+  margin-top: 0.5rem;
+  padding: 1rem;
   border-radius: 10px;
   font-family: var(--font-paragraph);
 }
 button {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 0.5rem 1rem;
-  margin: 0 auto;
-  width: 60%;
+  margin: 0.8rem auto;
   font-family: var(--font-heading);
   font-size: 1.2em;
   background-color: var(--color-toolbar);
-  box-shadow: 0px 0px 2px var(--color-highlight);
-  color: var(--color-highlight);
   border: none;
+  border-bottom: 2px solid var(--color-highlight);
+  color: var(--color-search-text);
   border-radius: 10px;
+}
+button:hover {
+  color: var(--color-highlight);
+  background-color: rgba(255, 255, 255, 0.1);
+  border-bottom: 2px solid var(--color-search-text);
+}
+button img {
+  width: 40px;
 }
 
 /*--------------------- Header Styles ---------------------*/
 #main-header {
   position: sticky;
   top: 0;
+  padding: 0 5px;
   z-index: 5;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
   align-items: center;
-
-  padding: 0.5rem;
   background-color: var(--color-background);
 }
 #main-header h1 {
-  font-size: 2rem;
+  font-size: 1.3rem;
 }
 #logo img {
-  width: 40px;
+  width: 30px;
 }
 .icons {
   position: relative;
@@ -102,12 +120,11 @@ button {
 
 /*--------------------- Main Styles ---------------------*/
 main {
-  display: grid;
   padding: 0.5rem;
 }
 #main-motto {
   width: 80%;
-  font-size: 2rem;
+  font-size: 90%;
   font-family: var(--font-heading);
   text-align: center;
 
@@ -148,6 +165,9 @@ main {
   background-color: transparent;
   border: none;
 }
+.search-button:hover {
+  border: none;
+}
 #search {
   width: 100%;
 }
@@ -162,62 +182,55 @@ main {
 /*--------------------- Footer Styles ---------------------*/
 
 /*--------------------- Deal-Card Styles ---------------------*/
-.deal-card,
-.wish-card {
+.deal-card {
   position: relative;
   border-radius: 10px;
   overflow: hidden;
-
-  display: grid;
-  grid-template-columns: 40% 1fr;
   align-items: center;
   width: 100%;
-  min-height: 220px;
-
   background-color: var(--color-toolbar);
   box-shadow: 0px 0px 5px var(--color-highlight);
   text-align: center;
 }
-.deal-card:hover .deal-card__image {
-  transform: scale(1.2);
-  border-radius: 10px;
-}
-.wish-card__store,
-.deal-card__store-icon {
+.deal-card__store {
   position: absolute;
-  display: block;
+  display: flex;
+  align-items: center;
   top: 5px;
   left: 5px;
   z-index: 2;
-  width: 26px;
-  padding: 5px;
+  padding: 2px 5px;
+  color: var(--color-search-text);
   background-color: var(--color-toolbar);
   border-radius: 10px;
+  font-size: 0.8rem;
+}
+.deal-card__store img {
+  width: 16px;
+  margin: 2px;
 }
 .deal-card__image {
-  display: block;
+  z-index: 0;
   transition: all 1s ease-out;
 }
 .deal-card__details {
-  position: relative;
-  z-index: 1;
+  z-index: 2;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   background-color: var(--color-toolbar);
-  min-height: 100%;
-  max-height: 300px;
 }
 .deal-card__title {
   text-align: center;
   margin: 0;
   font-size: 1.5rem;
-  overflow: hidden;
 }
 .deal-card__date {
+  color: var(--color-search-text);
   background-color: var(--color-toolbar);
-  font-size: 1rem;
+  font-size: 0.9rem;
   margin: 0.5rem;
   border-radius: 5px;
 }
@@ -227,26 +240,26 @@ main {
   justify-content: center;
   align-items: center;
 }
-.deal-card__retail,
-.deal-card__list {
+.deal-card__retail {
   margin: 0 0.5rem;
   color: var(--color-search-text);
-}
-.deal-card__retail {
   text-decoration: line-through;
 }
 .deal-card__list {
   padding: 0.5rem;
+  margin: 0 0.5rem;
   border-radius: 10px;
   background-color: rgba(26, 163, 170, 0.3);
+  color: var(--color-search-text);
 }
 .deal-card__actions {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   padding: 1rem;
 }
 .deal-card__wish,
-.deal-card__shop {
+.deal-card__shop,
+.deal-card__email {
   display: block;
   height: 40px;
   width: 40px;
@@ -255,15 +268,22 @@ main {
   border-radius: 10px;
 }
 .deal-card__shop {
+  display: block;
   background-color: #5c0514;
   justify-self: flex-end;
 }
 .deal-card__wish {
-  background-color: #1aa3aa;
-  justify-self: flex-start;
   display: block;
+  background-color: #1aa3aa;
+  justify-self: center;
 }
-.deal-card__wish:hover {
+.deal-card__email {
+  display: block;
+  background-color: var(--color-search-text);
+  justify-self: flex-start;
+}
+.deal-card__wish:hover,
+.deal-card__email:hover {
   cursor: pointer;
 }
 
@@ -279,19 +299,17 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 1rem;
-  margin-top: 1rem;
+  padding: 0.5rem;
 }
 .top {
   display: flex;
   flex-direction: column;
-  margin-top: 0.5rem;
+  margin-top: 1rem;
 }
 .sbs {
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-top: 0.5rem;
 }
 #lowerPrice,
 #upperPrice {
@@ -301,9 +319,10 @@ main {
 /*--------------------- Class Styles ---------------------*/
 .menu-content {
   position: absolute;
-  top: 40px;
+  top: 2.5rem;
   right: 0;
   flex-direction: column;
+  color: var(--color-highlight);
   background-color: var(--color-background);
   padding: 5px;
   border-radius: 10px;
@@ -311,36 +330,23 @@ main {
 .burger:hover .menu-content {
   display: flex;
 }
-.burger,
-.info,
-.home,
-.wishlist {
+.icon {
   position: relative;
-  display: block;
-  height: 40px;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  gap: 5px;
+  margin: 5px;
+  color: var(--color-search-text);
 }
-.caption {
-  position: absolute;
-  top: 0;
-  right: 40px;
-  text-decoration: none;
-  padding: 0.5rem;
-  background-color: var(--color-background);
-  color: var(--color-highlight);
-  border-radius: 5px;
-}
-.burger:hover .caption,
-.info:hover .caption,
-.home:hover .caption,
-.wishlist:hover .caption {
-  opacity: 1;
-  height: auto;
+.icon img {
+  width: 40px;
 }
 .loading {
   display: block;
   width: 100px;
   margin: 0 auto;
-  animation: rotate 1.5s ease-in-out 0.5s infinite;
+  animation: rotate 1.5s ease-out 0.5s infinite;
 }
 .hidden {
   will-change: opacity, height;
@@ -351,11 +357,16 @@ main {
 }
 .f-open {
   opacity: 1;
-  height: 420px;
+  height: 440px;
 }
 .m-open {
   opacity: 1;
-  height: 130px;
+  height: 190px;
+  z-index: inherit;
+}
+.h-open {
+  opacity: 1;
+  height: auto;
 }
 .grid {
   display: flex;
@@ -366,16 +377,17 @@ main {
   padding: 0.5rem;
 }
 .alert {
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-between;
-  align-items: center;
-  margin: 1rem;
   padding: 10px;
-  background-color: var(--color-toolbar);
+  margin: 0 5%;
+  width: 90%;
+  z-index: 6;
+  text-align: center;
+  background-color: #5c0514;
   color: var(--color-highlight);
-  box-shadow: 0px 0px 2px var(--color-highlight);
+  border: 2px solid var(--color-highlight);
   border-radius: 10px;
+
+  animation: grow 1s ease-out 1;
 }
 .close-alert:hover {
   cursor: pointer;
@@ -383,6 +395,97 @@ main {
 }
 .animate-icon {
   animation: grow 1s ease 0s;
+}
+.close-help {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-weight: 800;
+  font-size: 2rem;
+}
+.wishlist-alerts {
+  padding-left: 0;
+  margin: 0;
+}
+.alert-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  gap: 5px;
+  padding: 0.8rem;
+  margin: 1rem;
+  color: var(--color-search-text);
+  background-color: var(--color-toolbar);
+  box-shadow: 0px 0px 5px var(--color-search-text);
+  border-radius: 10px;
+}
+.alert-item select {
+  height: 32px;
+}
+.alert-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
+  width: 100%;
+}
+.delete-alert {
+  font-size: 20pt;
+  font-weight: 800;
+  padding: 5px 10px;
+  color: #5c0514;
+  background-color: var(--color-search-text);
+  border-radius: 10px;
+}
+.delete-alert:hover {
+  cursor: pointer;
+  color: var(--color-search-text);
+  background-color: #5c0514;
+}
+.email-modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: sticky;
+  width: 100%;
+  min-height: 100vh;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.e-open {
+  opacity: 1;
+  height: auto;
+  z-index: 6;
+}
+.alert-form {
+  position: relative;
+  width: 90%;
+  background-color: var(--color-toolbar);
+  border-radius: 10px;
+  padding: 1rem;
+}
+.alert-form h2 {
+  padding: 0;
+  font-size: 1.5rem;
+}
+.alert-form button {
+  border: 2px solid var(--color-highlight);
+}
+.close-modal {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 40px;
+  font-size: 1.5rem;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  font-weight: bold;
 }
 
 /*--------------------- ID Styles ---------------------*/
@@ -392,17 +495,41 @@ main {
   justify-content: flex-start;
   align-items: center;
 }
+#search-text {
+display: flex;
+flex-direction: column;
+align-items: center;
+}
 #search-text img {
+  max-width: 80px;
   filter: invert();
+}
+#search-deals {
+  margin: 0;
+}
+#alerts {
+  position: fixed;
+  bottom: 1rem;
+  left: 0;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  gap: 5px;
+  z-index: 6;
 }
 
 /*--------------------- Animations ---------------------*/
 @keyframes scale-small {
-  from {
+  0% {
     transform: scale(1, 1);
   }
-  to {
+  50% {
     transform: scale(1.2, 1.2);
+  }
+  100% {
+    transform: scale(1, 1);
   }
 }
 @keyframes rotate {

@@ -2,6 +2,10 @@
   main {
     padding: 0px 20%;
   }
+  footer {
+    display: flex;
+    justify-content: space-between;
+  }
   #main-header {
     padding: 1rem 10%;
   }

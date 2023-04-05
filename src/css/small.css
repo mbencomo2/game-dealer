@@ -180,6 +180,18 @@ main {
 }
 
 /*--------------------- Footer Styles ---------------------*/
+footer {
+  padding: 0.5rem;
+}
+footer p {
+  font-size: 0.8rem;
+}
+footer a {
+  font-size: 0.8rem;
+}
+.footer-logo {
+  width: 25px;
+}
 
 /*--------------------- Deal-Card Styles ---------------------*/
 .deal-card {

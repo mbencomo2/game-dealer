@@ -7,7 +7,6 @@ const list = qs("#search-deals");
 const form = new SearchWithFilter(list);
 pageInit();
 
-
 async function pageInit() {
   mobileNav();
   await form.deals.renderStoreOptions();
@@ -25,7 +24,9 @@ function createListeners() {
   //Perform a new fetch when the filters change
   qs(".filters").addEventListener("change", () => form.fetchDeals());
   //Create email alerts when form button is clicked
-  qs("#email-button").addEventListener("click", () => form.modal.createEmailAlert());
+  qs("#email-button").addEventListener("click", () =>
+    form.modal.createEmailAlert()
+  );
   //Close the modal
   qs(".close-modal").addEventListener("click", (e) => {
     e.target.closest("div").classList.toggle("e-open");

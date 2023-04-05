@@ -429,6 +429,7 @@ main {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  text-align: center;
   gap: 5px;
   width: 100%;
 }
@@ -492,7 +493,7 @@ main {
   justify-content: space-between;
   width: 80%;
   margin: 0 auto;
-  padding: .5rem;
+  padding: 0.5rem;
 }
 
 .page-select img {

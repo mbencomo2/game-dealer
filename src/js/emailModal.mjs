@@ -28,6 +28,7 @@ export class emailModal {
         formData.price
       );
       this.wishlist.addToWishlist(formData.gameID, formData.price);
+      this.wishlist.updateAlertPrice(formData.gameID, formData.price)
       displayAlert("Email Alert Created");
       qs(".email-modal").classList.toggle("e-open");
     } else {

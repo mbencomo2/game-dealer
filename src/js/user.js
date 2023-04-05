@@ -1,5 +1,5 @@
 import { User } from "./user.mjs";
-import { mobileNav, qs } from "./utils.mjs";
+import { displayAlert, mobileNav, qs } from "./utils.mjs";
 
 const list = qs(".wishlist-alerts");
 const user = new User(list);
@@ -19,6 +19,15 @@ function createListeners() {
     qs(".wishlist-alerts").classList.toggle("h-open")
   );
   qs(".wishlist-alerts").addEventListener("change", (e) =>
-    user.updateAlertPrice(e.target)
+    updateAlert(e.target)
   );
+}
+
+function updateAlert(target) {
+  if (target.className == "alert-select") {
+    let id = target.dataset.id;
+    let price = target.value;
+    user.wishlist.updateAlertPrice(id, price);
+    displayAlert("Alert Price Updated");
+  }
 }

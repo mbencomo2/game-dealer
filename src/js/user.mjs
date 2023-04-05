@@ -17,13 +17,6 @@ export class User {
     return getStorage("alertEmail") ?? "";
   }
 
-  updateAlertPrice(target) {
-    if (target.className == "alert-select") {
-      this.wishlist.updateAlertPrice(target);
-      displayAlert("Alert Price Updated");
-    }
-  }
-
   userMan(target) {
     let action = target.dataset.action;
     if (action == "delete") {

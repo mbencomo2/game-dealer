@@ -103,22 +103,16 @@ export default class Wishlist {
     let wishlist = getStorage(this.key) ?? [];
     let html = wishlist.map(alertTemplate);
     this.parent.insertAdjacentHTML("beforeend", html.join(""));
-    let listItems = document.querySelectorAll(".alert-item>select");
-    listItems.forEach((li) =>
-      li.addEventListener("change", (e) => this.updateAlertPrice(e))
-    );
   }
   /**
    * Updates an item in the wishlist with the selected alertPrice.
    * Update the email alert.
    * @param {node} e
    */
-  updateAlertPrice(target) {
+  updateAlertPrice(id, price) {
     let wishlist = getStorage(this.key);
-    let id = target.dataset.id;
     let deal = wishlist.find((wishItem) => wishItem.id == id);
     if (deal) {
-      let price = target.value;
       deal.alertPrice = price;
       setStorage(this.key, wishlist);
       this.dealService.createEmailAlert(getStorage("alertEmail"), id, price);
@@ -199,7 +193,7 @@ function alertTemplate(deal) {
   return `<li class="alert-item">
 <div class="alert-details">
   ${deal.title}
-  <select class="alert-select" data-id="${deal.id}">
+  <select class="alert-select" data-id="${deal.id}" aria-label="Change price alert">
     <option selected hidden>
       ${currConverter(deal.alertPrice)}
     </option>

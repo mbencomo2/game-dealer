@@ -66,20 +66,14 @@
     </header>
     <main>
       <h1>Search Deals</h1>
-      <form
-        class="search"
-        action="/dealListing/"
-        method="GET"
-      >
-        <label id="search" for="search-bar"
-          ><input
-            type="text"
-            name="title"
-            id="search-bar"
-            placeholder="Search Games"
-            aria-label="Search Bar"
-          />
-        </label>
+      <form class="search" action="/dealListing/" method="GET">
+        <input
+          type="text"
+          name="title"
+          id="search-bar"
+          placeholder="Search Games"
+          aria-label="Search Bar"
+        />
         <button class="search-button" type="submit">
           <img src="/images/search-svgrepo-com.svg" alt="Search Button" />
         </button>

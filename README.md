@@ -1,8 +1,8 @@
-# sleepoutside
+# Game DEALer
 
 ## Description
 
-Use this as a starting point to complete the WDD 330 team activity: the SleepOutside web application. It scaffolds out a simple web app with Vite support to bundle up our assets.
+My final project for WDD330. A simple website to help you find your favorite games on sale at the lowest price using the CheapShark API.
 
 ## Prerequisites
 
